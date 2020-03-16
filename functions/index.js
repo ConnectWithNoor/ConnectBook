@@ -91,16 +91,17 @@ app.post('/signup', async (req, res) => {
         newUser.password
       );
       const token = await data.user.getIdToken();
-      return res
-        .status(201)
-        .send({
-          message: `user ${data.user.uid} signed up successfully`,
-          token
-        });
+      return res.status(201).send({
+        message: `user ${data.user.uid} signed up successfully`,
+        token
+      });
     }
   } catch (err) {
+    if (err.code === 'auth/email-already-in-use') {
+      return res.status(400).send({ error: `this email is already taken` });
+    }
     console.error(err);
-    return res.status(500).send({ error: err.message, code: err.code });
+    return res.status(500).send({ error: err.message, code: err.code, err });
   }
 });
 
