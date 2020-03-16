@@ -11,41 +11,37 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
-app.get('/screams', (req, res) => {
-  db.collection('screams')
-    .orderBy('createdAt', 'desc')
-    .get()
-    .then(data => {
-      const screams = [];
-      data.forEach(doc => {
-        screams.push(doc.data());
-      });
-      return res.status(200).send(screams);
-    })
-    .catch(err => {
-      console.log(err);
-      return res.status(500).send({ error: err.message, code: err.code });
-    });
+app.get('/screams', async (req, res) => {
+  try {
+    const data = await db
+      .collection('screams')
+      .orderBy('createdAt', 'desc')
+      .get();
+
+    const screams = await data.docs.map(item => item.data());
+    return res.status(200).send(screams);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send({ error: err.message, code: err.code });
+  }
 });
 
-app.post('/scream', (req, res) => {
+app.post('/scream', async (req, res) => {
   const newScream = {
     body: req.body.body,
     userHandle: req.body.userHandle,
     createdAt: new Date().toISOString()
   };
 
-  db.collection('screams')
-    .add(newScream)
-    .then(doc => {
-      return res
-        .status(201)
-        .send({ message: `document ${doc.id} created successfully` });
-    })
-    .catch(err => {
-      console.log(err);
-      return res.status(500).send({ error: err.message, code: err.code });
-    });
+  try {
+    const scream = await db.collection('screams').add(newScream);
+    return res
+      .status(201)
+      .send({ message: `document ${scream.id} created successfully` });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send({ error: err.message, code: err.code });
+  }
 });
 
 exports.api = functions.https.onRequest(app);
