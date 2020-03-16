@@ -71,7 +71,7 @@ app.post('/newscream', async (req, res) => {
 // signup new registration
 
 app.post('/signup', async (req, res) => {
-  const newUser = {
+  const newUserInfo = {
     email: req.body.email,
     password: req.body.password,
     confirmPassword: req.body.confirmPassword,
@@ -79,20 +79,34 @@ app.post('/signup', async (req, res) => {
   };
 
   try {
-    //  validate the newUser details
-    const isUser = await db.doc(`/users/${newUser.handle}`).get();
+    //  validate the newUserInfo details
+    const isUser = await db.doc(`/users/${newUserInfo.handle}`).get();
     if (isUser.exists) {
       // if handle already exists return error
       return res.status(400).send({ error: `this handle is already taken` });
     } else {
       // proceed signup request
-      const data = await auth.createUserWithEmailAndPassword(
-        newUser.email,
-        newUser.password
+      const newUser = await auth.createUserWithEmailAndPassword(
+        newUserInfo.email,
+        newUserInfo.password
       );
-      const token = await data.user.getIdToken();
+      // get newUser token
+      const token = await newUser.user.getIdToken();
+
+      const userCredentials = {
+        handle: newUserInfo.handle,
+        email: newUserInfo.email,
+        createdAt: new Date().toISOString(),
+        userId: newUser.user.uid
+      };
+
+      // create new document on collection('/users')wrt userHandle
+      const data = await db
+        .doc(`/users/${newUserInfo.handle}`)
+        .set(userCredentials);
+
       return res.status(201).send({
-        message: `user ${data.user.uid} signed up successfully`,
+        message: `user ${newUser.user.uid} signed up successfully`,
         token
       });
     }
