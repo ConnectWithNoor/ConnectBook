@@ -4,6 +4,7 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const firebase = require('firebase');
 const app = require('express')();
+const validate = require('validate.js');
 
 const serviceAccountKey = require('./env/SERVICE_ACCOUNT_KEY.json');
 const firebaseConfig = require('./env/FIREBASE_CONFIG');
@@ -22,6 +23,18 @@ firebase.initializeApp(firebaseConfig);
 
 const db = admin.firestore();
 const auth = firebase.auth();
+
+const validateConstraints = {
+  from: {
+    email: true
+  },
+  confirmPassword: {
+    equality: 'password',
+    length: {
+      minimum: 8
+    }
+  }
+};
 
 // ----------------ROUTES-------------------------- //
 
@@ -78,8 +91,34 @@ app.post('/signup', async (req, res) => {
     handle: req.body.handle
   };
 
+  //   validating the user input
+
+  if (validate.isEmpty(newUserInfo.email)) {
+    return res.status(400).send({ error: 'Please enter a valid email' });
+  } else if (validate.isEmpty(newUserInfo.password)) {
+    return res.status(400).send({ error: 'Please enter a valid password' });
+  } else if (validate.isEmpty(newUserInfo.confirmPassword)) {
+    return res.status(400).send({ error: 'Please enter a valid password' });
+  } else if (validate.isEmpty(newUserInfo.handle)) {
+    return res.status(400).send({ error: 'Please enter a valid handle' });
+  } else if (validate({ from: newUserInfo.email }, validateConstraints)) {
+    return res.status(400).send({ error: 'Please enter a valid email' });
+  } else if (
+    validate(
+      {
+        password: newUserInfo.password,
+        confirmPassword: newUserInfo.confirmPassword
+      },
+      validateConstraints
+    )
+  ) {
+    return res.status(400).send({
+      error: 'Password must match or must be minumum 8 characters long'
+    });
+  }
+
   try {
-    //  validate the newUserInfo details
+    //  validate the newUserInfo details on firebase
     const isUser = await db.doc(`/users/${newUserInfo.handle}`).get();
     if (isUser.exists) {
       // if handle already exists return error
