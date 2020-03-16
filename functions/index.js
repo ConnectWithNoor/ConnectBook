@@ -78,16 +78,26 @@ app.post('/signup', async (req, res) => {
     handle: req.body.handle
   };
 
-  //   TODO: validate data
-
   try {
-    const data = await auth.createUserWithEmailAndPassword(
-      newUser.email,
-      newUser.password
-    );
-    return res
-      .status(201)
-      .send({ message: `user ${data.user.uid} signed up successfully` });
+    //  validate the newUser details
+    const isUser = await db.doc(`/users/${newUser.handle}`).get();
+    if (isUser.exists) {
+      // if handle already exists return error
+      return res.status(400).send({ error: `this handle is already taken` });
+    } else {
+      // proceed signup request
+      const data = await auth.createUserWithEmailAndPassword(
+        newUser.email,
+        newUser.password
+      );
+      const token = await data.user.getIdToken();
+      return res
+        .status(201)
+        .send({
+          message: `user ${data.user.uid} signed up successfully`,
+          token
+        });
+    }
   } catch (err) {
     console.error(err);
     return res.status(500).send({ error: err.message, code: err.code });
