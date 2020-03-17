@@ -8,7 +8,7 @@ const app = require('express')();
 const serviceAccountKey = require('./env/SERVICE_ACCOUNT_KEY.json');
 const firebaseConfig = require('./env/FIREBASE_CONFIG');
 
-// ----------------INITIALIZATION-------------------------- //
+// ----------------INITIALIZATION-------- ------------------ //
 
 // initiallize firestore local server
 admin.initializeApp({
@@ -25,10 +25,13 @@ const signin = require('./routes/signin');
 const getScreams = require('./routes/getScreams');
 const newScream = require('./routes/newScream');
 
+// --------------MIDDLEWARE---------------------------- //
+const protectedRoute = require('./middleware/protectedRoute');
+
 // --------------SETTING UP---------------------------- //
 
 app.use('/getscreams', getScreams);
-app.use('/newscream', newScream);
+app.use('/newscream', protectedRoute, newScream);
 app.use('/signup', signup);
 app.use('/signin', signin);
 

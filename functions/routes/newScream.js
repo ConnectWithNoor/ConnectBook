@@ -18,7 +18,7 @@ route.post('/', async (req, res) => {
 
   const newScream = {
     body: req.body.body,
-    userHandle: req.body.userHandle,
+    userHandle: req.user.handle,
     createdAt: new Date().toISOString()
   };
 
