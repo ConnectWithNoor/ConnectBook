@@ -1,10 +1,6 @@
 // --------------IMPORTS---------------------------- //
 
-const admin = require('firebase-admin');
-
-// --------------CONSTANTS---------------------------- //
-
-const db = admin.firestore();
+const { admin, db } = require('../utility/firebaseAdmin');
 
 // --------------MIDDLEWARE---------------------------- //
 
@@ -18,7 +14,6 @@ const protectedRoute = async (req, res, next) => {
     const idToken = req.headers.authorization.split('Bearer ')[1];
     try {
       const decodedToken = await admin.auth().verifyIdToken(idToken);
-      console.log(decodedToken);
       //   add decodedToken to req
       req.user = decodedToken;
 

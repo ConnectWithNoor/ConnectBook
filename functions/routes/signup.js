@@ -2,16 +2,13 @@
 
 const express = require('express');
 const validate = require('validate.js');
-const admin = require('firebase-admin');
-const firebase = require('firebase');
-
-const validateConstraints = require('../validateConstraints');
+const { db } = require('../utility/firebaseAdmin');
+const { auth } = require('../utility/firebase');
+const validateConstraints = require('../utility/validateConstraints');
 
 // --------------CONSTANTS---------------------------- //
 
 const route = express.Router();
-const db = admin.firestore();
-const auth = firebase.auth();
 
 // --------------ROUTE---------------------------- //
 

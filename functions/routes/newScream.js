@@ -1,13 +1,12 @@
 // --------------IMPORTS---------------------------- //
 
 const express = require('express');
-const admin = require('firebase-admin');
+const { db } = require('../utility/firebaseAdmin');
 const validate = require('validate.js');
 
 // --------------CONSTANTS---------------------------- //
 
 const route = express.Router();
-const db = admin.firestore();
 
 // --------------ROUTE---------------------------- //
 

@@ -2,12 +2,11 @@
 
 const express = require('express');
 const validate = require('validate.js');
-const firebase = require('firebase');
+const { auth } = require('../utility/firebase');
 
 // --------------CONSTANTS---------------------------- //
 
 const route = express.Router();
-const auth = firebase.auth();
 
 // --------------ROUTE---------------------------- //
 

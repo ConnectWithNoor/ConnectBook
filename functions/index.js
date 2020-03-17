@@ -1,22 +1,7 @@
 // -----------------IMPORTS------------------------- //
 
 const functions = require('firebase-functions');
-const admin = require('firebase-admin');
-const firebase = require('firebase');
 const app = require('express')();
-
-const serviceAccountKey = require('./env/SERVICE_ACCOUNT_KEY.json');
-const firebaseConfig = require('./env/FIREBASE_CONFIG');
-
-// ----------------INITIALIZATION-------- ------------------ //
-
-// initiallize firestore local server
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccountKey)
-});
-
-// initialize firebase for auth
-firebase.initializeApp(firebaseConfig);
 
 // --------------ROUTES---------------------------- //
 
