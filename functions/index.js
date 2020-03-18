@@ -1,7 +1,8 @@
 // -----------------IMPORTS------------------------- //
 
 const functions = require('firebase-functions');
-const app = require('express')();
+const express = require('express');
+const app = express();
 
 // --------------ROUTES---------------------------- //
 
@@ -14,7 +15,6 @@ const uploadImage = require('./routes/uploadImage');
 
 // --------------MIDDLEWARE---------------------------- //
 const protectedRoute = require('./middleware/protectedRoute');
-const { imgUpload } = require('./utility/multer');
 
 // --------------SETTING UP---------------------------- //
 
@@ -23,8 +23,6 @@ app.use('/newscream', protectedRoute, newScream);
 app.use('/signup', signup);
 app.use('/signin', signin);
 
-// THIS ROUTE BELOW
-
-app.use('/user/upload/image', imgUpload.single('productImage'), uploadImage);
+app.use('/user/upload/image', uploadImage);
 
 exports.api = functions.https.onRequest(app);
