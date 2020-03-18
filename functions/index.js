@@ -5,11 +5,13 @@ const app = require('express')();
 
 // --------------ROUTES---------------------------- //
 
-const signup = require('./routes/signup');
-const signin = require('./routes/signin');
-const getScreams = require('./routes/getScreams');
-const newScream = require('./routes/newScream');
-const uploadImage = require('./routes/uploadImage');
+const {
+  getScreams,
+  newScream,
+  signin,
+  signup,
+  uploadImage
+} = require('./routes');
 
 // --------------MIDDLEWARE---------------------------- //
 const protectedRoute = require('./middleware/protectedRoute');
