@@ -65,7 +65,9 @@ route.post('/', async (req, res) => {
         handle: newUserInfo.handle,
         email: newUserInfo.email,
         createdAt: new Date().toISOString(),
-        userId: newUser.user.uid
+        userId: newUser.user.uid,
+        imageUrl:
+          'https://firebasestorage.googleapis.com/v0/b/connectbook-5628f.appspot.com/o/avatar.png?alt=media'
       };
 
       // create new document on collection('/users')wrt userHandle
