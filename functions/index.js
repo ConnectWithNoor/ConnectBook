@@ -15,7 +15,8 @@ const {
   addUserDetails,
   getUserDetails,
   commentOnScream,
-  likeScream
+  likeScream,
+  unlikeScream
 } = require('./routes');
 
 // --------------MIDDLEWARE---------------------------- //
@@ -41,4 +42,4 @@ app.get('/user', protectedRoute, getUserDetails);
 exports.api = functions.https.onRequest(app);
 
 // app.listen(5000, () => console.log(`Example app listening on port 5000!`));
-// 2:33
+// 3:12

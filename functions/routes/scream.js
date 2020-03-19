@@ -159,6 +159,51 @@ exports.commentOnScream = async (req, res) => {
   }
 };
 
-exports.likeScream = async (req, res) => {};
+exports.likeScream = async (req, res) => {
+  const likeDocument = db
+    .collection('likes')
+    .where('userHandle', '==', req.user.handle)
+    .where('screamId', '==', req.params.screamId)
+    .limit(1);
+
+  const screamDocument = db.doc(`/screams/${req.params.screamId}`);
+  try {
+    const scream = await screamDocument.get();
+
+    if (!scream.exists) {
+      return res.status(404).send({ error: 'scream not found' });
+    } else {
+      const screamData = {
+        ...scream.data(),
+        screamId: scream.id
+      };
+
+      const like = await likeDocument.get();
+      console.log(like);
+
+      // if not liked already
+      if (like.empty) {
+        const likeDetails = {
+          screamId: req.params.screamId,
+          userHandle: req.user.handle,
+          createdAt: new Date().toISOString()
+        };
+        await db.collection('likes').add(likeDetails);
+        screamData.likeCount = screamData.likeCount + 1;
+        console.log(screamData);
+        await screamDocument.update({ likeCount: screamData.likeCount });
+
+        return res
+          .status(201)
+          .send({ message: 'scream liked successfully', screamData });
+      } else {
+        return res.status(400).send({ error: 'scream already liked' });
+      }
+    }
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send({ error: err.code });
+  }
+};
 
 exports.unlikeScream = async (req, res) => {};
