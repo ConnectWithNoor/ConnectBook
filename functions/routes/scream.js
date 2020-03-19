@@ -42,6 +42,7 @@ exports.getScream = async (req, res) => {
 
       const comments = await db
         .collection('comments')
+        .orderBy('createdAt', 'desc')
         .where('screamId', '==', screamData.screamId)
         .get();
 
