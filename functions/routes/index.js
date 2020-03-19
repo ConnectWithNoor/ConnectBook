@@ -3,7 +3,8 @@ const {
   getAllScreams,
   getScream,
   newScream,
-  uploadImage
+  uploadImage,
+  commentOnScream
 } = require('./scream');
 
 module.exports = {
@@ -14,5 +15,6 @@ module.exports = {
   newScream,
   signin,
   signup,
-  uploadImage
+  uploadImage,
+  commentOnScream
 };

@@ -125,3 +125,30 @@ exports.uploadImage = async (req, res) => {
 
   busBoy.end(req.rawBody);
 };
+
+exports.commentOnScream = async (req, res) => {
+  if (validate.isEmpty(req.body.body)) {
+    return res.status(400).send({ error: 'Comment must not be empty' });
+  }
+
+  const newComment = {
+    ...req.body,
+    createdAt: new Date().toISOString(),
+    screamId: req.params.screamId,
+    userHandle: req.user.handle,
+    userImage: req.user.imageUrl
+  };
+
+  try {
+    const scream = await db.doc(`/screams/${req.params.screamId}`).get();
+    if (!scream._createTime) {
+      return res.status(404).send({ error: 'Scream Not Found' });
+    }
+    await db.collection('comments').add(newComment);
+
+    return res.status(201).send({ message: 'New comment added', newComment });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send({ error: 'Something went wrong', err });
+  }
+};

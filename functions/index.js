@@ -13,7 +13,8 @@ const {
   signup,
   uploadImage,
   addUserDetails,
-  getUserDetails
+  getUserDetails,
+  commentOnScream
 } = require('./routes');
 
 // --------------MIDDLEWARE---------------------------- //
@@ -25,6 +26,7 @@ const protectedRoute = require('./middleware/protectedRoute');
 app.get('/getscreams', getAllScreams);
 app.post('/newscream', protectedRoute, newScream);
 app.get('/scream/:screamId', getScream);
+app.post('/scream/:screamId/comment', protectedRoute, commentOnScream);
 
 // users route
 app.post('/signup', signup);
