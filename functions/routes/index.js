@@ -1,17 +1,18 @@
-const getScreams = require('./getScreams');
-const newScream = require('./newScream');
-const signin = require('./signin');
-const signup = require('./signup');
-const uploadImage = require('./uploadImage');
-const addUserDetails = require('./addUserDetails');
-const getUserDetails = require('./getUserDetails');
+const { addUserDetails, getUserDetails, signin, signup } = require('./user');
+const {
+  getAllScreams,
+  getScream,
+  newScream,
+  uploadImage
+} = require('./scream');
 
 module.exports = {
-  getScreams,
+  addUserDetails,
+  getAllScreams,
+  getScream,
+  getUserDetails,
   newScream,
   signin,
   signup,
-  uploadImage,
-  addUserDetails,
-  getUserDetails
+  uploadImage
 };

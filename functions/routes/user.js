@@ -1,18 +1,89 @@
-// --------------IMPORT---------------------------- //
-
-const express = require('express');
-const validate = require('validate.js');
 const { db } = require('../utility/firebaseAdmin');
 const { auth } = require('../utility/firebase');
+const validate = require('validate.js');
 const validateConstraints = require('../utility/validateConstraints');
 
-// --------------CONSTANTS---------------------------- //
+exports.addUserDetails = async (req, res) => {
+  const userDetails = {
+    bio: req.body.bio,
+    website: req.body.website,
+    location: req.body.location
+  };
 
-const route = express.Router();
+  try {
+    await db.doc(`/users/${req.user.handle}`).update(userDetails);
 
-// --------------ROUTE---------------------------- //
+    return res
+      .status(201)
+      .send({ message: 'Details added successfully', userDetails });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send({ error: err.code });
+  }
+};
 
-route.post('/', async (req, res) => {
+exports.getUserDetails = async (req, res) => {
+  let userData = {};
+  try {
+    const doc = await db.doc(`/users/${req.user.handle}`).get();
+    if (doc.exists) {
+      userData.credentials = doc.data();
+
+      const likes = await db
+        .collection('likes')
+        .where('userHandle', '==', req.user.handle)
+        .get();
+
+      userData.likes = likes.docs.map(like => like.data());
+
+      return res.status(200).send({ message: 'user data fetched', userData });
+    } else {
+      console.error('user data doesnt exist');
+      return res.status(400).send({ error: 'user data doesnt exist' });
+    }
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send({ error: err.code });
+  }
+};
+
+exports.signin = async (req, res) => {
+  const user = {
+    email: req.body.email,
+    password: req.body.password
+  };
+
+  //   validate user input
+
+  if (validate.isEmpty(user.email)) {
+    return res.status(400).send({ error: 'Please enter a valid email' });
+  } else if (validate.isEmpty(user.password)) {
+    return res.status(400).send({ error: 'Please enter a valid password' });
+  }
+
+  try {
+    const signin = await auth.signInWithEmailAndPassword(
+      user.email,
+      user.password
+    );
+
+    const token = await signin.user.getIdToken();
+    return res.status(202).send({
+      message: `user ${signin.user.uid} signed in successfully`,
+      token
+    });
+  } catch (err) {
+    if (err.code === 'auth/wrong-password') {
+      return res
+        .status(403)
+        .send({ error: 'Invalid Credentials. Please try again' });
+    }
+    console.error(err);
+    return res.status(500).send({ error: err.message, code: err.code, err });
+  }
+};
+
+exports.signup = async (req, res) => {
   const newUserInfo = {
     email: req.body.email,
     password: req.body.password,
@@ -87,6 +158,4 @@ route.post('/', async (req, res) => {
     console.error(err);
     return res.status(500).send({ error: err.message, code: err.code, err });
   }
-});
-
-module.exports = route;
+};
