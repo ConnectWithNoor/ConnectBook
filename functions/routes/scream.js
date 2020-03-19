@@ -64,14 +64,20 @@ exports.newScream = async (req, res) => {
   const newScream = {
     body: req.body.body,
     userHandle: req.user.handle,
-    createdAt: new Date().toISOString()
+    createdAt: new Date().toISOString(),
+    userImage: req.user.imageUrl,
+    likeCount: 0,
+    commentCount: 0
   };
 
   try {
     const scream = await db.collection('screams').add(newScream);
-    return res
-      .status(201)
-      .send({ message: `document ${scream.id} created successfully` });
+    const resScream = newScream;
+    resScream.screamId = sceam.id;
+    return res.status(201).send({
+      message: `document ${scream.id} created successfully`,
+      resScream
+    });
   } catch (err) {
     console.error(err);
     return res.status(500).send({ error: err.message, code: err.code });
@@ -152,3 +158,7 @@ exports.commentOnScream = async (req, res) => {
     return res.status(500).send({ error: 'Something went wrong', err });
   }
 };
+
+exports.likeScream = async (req, res) => {};
+
+exports.unlikeScream = async (req, res) => {};

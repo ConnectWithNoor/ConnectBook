@@ -14,7 +14,8 @@ const {
   uploadImage,
   addUserDetails,
   getUserDetails,
-  commentOnScream
+  commentOnScream,
+  likeScream
 } = require('./routes');
 
 // --------------MIDDLEWARE---------------------------- //
@@ -27,6 +28,8 @@ app.get('/getscreams', getAllScreams);
 app.post('/newscream', protectedRoute, newScream);
 app.get('/scream/:screamId', getScream);
 app.post('/scream/:screamId/comment', protectedRoute, commentOnScream);
+app.get('/scream/:screamId/like', protectedRoute, likeScream);
+app.get('/scream/:screamId/unlike', protectedRoute, unlikeScream);
 
 // users route
 app.post('/signup', signup);

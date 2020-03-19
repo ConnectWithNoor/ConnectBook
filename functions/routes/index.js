@@ -4,7 +4,9 @@ const {
   getScream,
   newScream,
   uploadImage,
-  commentOnScream
+  commentOnScream,
+  likeScream,
+  unlikeScream
 } = require('./scream');
 
 module.exports = {
@@ -16,5 +18,7 @@ module.exports = {
   signin,
   signup,
   uploadImage,
-  commentOnScream
+  commentOnScream,
+  likeScream,
+  unlikeScream
 };
