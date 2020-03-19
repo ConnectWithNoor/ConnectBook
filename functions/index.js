@@ -11,7 +11,8 @@ const {
   signin,
   signup,
   uploadImage,
-  addUserDetails
+  addUserDetails,
+  getUserDetails
 } = require('./routes');
 
 // --------------MIDDLEWARE---------------------------- //
@@ -25,6 +26,7 @@ app.use('/signup', signup);
 app.use('/signin', signin);
 app.use('/user/upload/img', protectedRoute, uploadImage);
 app.use('/user', protectedRoute, addUserDetails);
+app.use('/user', protectedRoute, getUserDetails);
 
 exports.api = functions.https.onRequest(app);
 

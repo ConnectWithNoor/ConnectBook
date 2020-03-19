@@ -4,6 +4,7 @@ const signin = require('./signin');
 const signup = require('./signup');
 const uploadImage = require('./uploadImage');
 const addUserDetails = require('./addUserDetails');
+const getUserDetails = require('./getUserDetails');
 
 module.exports = {
   getScreams,
@@ -11,5 +12,6 @@ module.exports = {
   signin,
   signup,
   uploadImage,
-  addUserDetails
+  addUserDetails,
+  getUserDetails
 };
