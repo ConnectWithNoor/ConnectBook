@@ -10,7 +10,8 @@ const {
   newScream,
   signin,
   signup,
-  uploadImage
+  uploadImage,
+  addUserDetails
 } = require('./routes');
 
 // --------------MIDDLEWARE---------------------------- //
@@ -23,6 +24,7 @@ app.use('/newscream', protectedRoute, newScream);
 app.use('/signup', signup);
 app.use('/signin', signin);
 app.use('/user/upload/img', protectedRoute, uploadImage);
+app.use('/user', protectedRoute, addUserDetails);
 
 exports.api = functions.https.onRequest(app);
 
