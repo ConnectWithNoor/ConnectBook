@@ -17,6 +17,9 @@ route.get('/', async (req, res) => {
       userData.likes = likes.docs.map(like => like.data());
 
       return res.status(200).send({ message: 'user data fetched', userData });
+    } else {
+      console.error('user data doesnt exist');
+      return res.status(400).send({ error: 'user data doesnt exist' });
     }
   } catch (err) {
     console.error(err);
