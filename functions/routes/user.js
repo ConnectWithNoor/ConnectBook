@@ -39,6 +39,7 @@ exports.getUserDetails = async (req, res) => {
       const notifications = await db
         .collection('notifications')
         .where('recipient', '==', req.user.handle)
+        .where('read', '==', false)
         .orderBy('createdAt', 'desc')
         .get();
 
