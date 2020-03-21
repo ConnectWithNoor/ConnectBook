@@ -168,7 +168,12 @@ exports.signup = async (req, res) => {
       return res.status(400).send({ error: `this email is already taken` });
     }
     console.error(err);
-    return res.status(500).send({ error: err.message, code: err.code, err });
+    return res.status(500).send({
+      message: 'Somthing Went Wrong',
+      error: err.message,
+      code: err.code,
+      err
+    });
   }
 };
 

@@ -17,9 +17,7 @@ exports.getAllScreams = async (req, res) => {
     const screams = data.docs.map(item => {
       return {
         screamId: item.id,
-        body: item.data().body,
-        userHandle: item.data().userHandle,
-        createdAt: item.data().createdAt
+        ...item.data()
       };
     });
     return res.status(200).send(screams);

@@ -22,7 +22,8 @@ const {
   markNotificaionsRead,
   likeNotification,
   commentNotification,
-  unLikeNotification
+  unLikeNotification,
+  userImageUpdate
 } = require('./routes');
 
 // --------------MIDDLEWARE---------------------------- //
@@ -51,10 +52,10 @@ app.post('/notifications', protectedRoute, markNotificaionsRead);
 exports.api = functions.https.onRequest(app);
 
 // app.listen(5000, () => console.log(`Example app listening on port 5000!`));
-// 3:17
+// 3:58
 
 // TODO: imgUrl isn't updating on previous comments
-
+// TODO: delete notifications of the deleted scream
 // --------------SETTING UP---------------------------- //
 
 // like notification trigger
@@ -71,3 +72,8 @@ exports.deleteNotificationOnUnline = functions.firestore
 exports.createNotificationOnComment = functions.firestore
   .document('comments/{id}')
   .onCreate(commentNotification);
+
+// on user's image update
+exports.onUserImageChange = functions.firestore
+  .document('users/{id}')
+  .onUpdate(userImageUpdate);

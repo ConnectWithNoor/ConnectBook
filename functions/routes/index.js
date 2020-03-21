@@ -21,7 +21,8 @@ const {
 const {
   likeNotification,
   commentNotification,
-  unLikeNotification
+  unLikeNotification,
+  userImageUpdate
 } = require('./triggers');
 
 module.exports = {
@@ -41,5 +42,6 @@ module.exports = {
   markNotificaionsRead,
   likeNotification,
   commentNotification,
-  unLikeNotification
+  unLikeNotification,
+  userImageUpdate
 };
