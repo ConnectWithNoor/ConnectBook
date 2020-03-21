@@ -6,7 +6,8 @@ const {
   uploadImage,
   commentOnScream,
   likeScream,
-  unlikeScream
+  unlikeScream,
+  deleteScream
 } = require('./scream');
 
 module.exports = {
@@ -20,5 +21,6 @@ module.exports = {
   uploadImage,
   commentOnScream,
   likeScream,
-  unlikeScream
+  unlikeScream,
+  deleteScream
 };

@@ -16,7 +16,8 @@ const {
   getUserDetails,
   commentOnScream,
   likeScream,
-  unlikeScream
+  unlikeScream,
+  deleteScream
 } = require('./routes');
 
 // --------------MIDDLEWARE---------------------------- //
@@ -28,6 +29,7 @@ const protectedRoute = require('./middleware/protectedRoute');
 app.get('/getscreams', getAllScreams);
 app.post('/newscream', protectedRoute, newScream);
 app.get('/scream/:screamId', getScream);
+app.delete('/scream/:screamId', protectedRoute, deleteScream);
 app.post('/scream/:screamId/comment', protectedRoute, commentOnScream);
 app.get('/scream/:screamId/like', protectedRoute, likeScream);
 app.get('/scream/:screamId/unlike', protectedRoute, unlikeScream);
@@ -42,4 +44,6 @@ app.get('/user', protectedRoute, getUserDetails);
 exports.api = functions.https.onRequest(app);
 
 // app.listen(5000, () => console.log(`Example app listening on port 5000!`));
-// 3:12
+// 3:17
+
+// TODO: imgUrl isn't updating on previous comments

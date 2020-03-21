@@ -72,11 +72,10 @@ exports.newScream = async (req, res) => {
 
   try {
     const scream = await db.collection('screams').add(newScream);
-    const resScream = newScream;
-    resScream.screamId = sceam.id;
+    newScream.screamId = scream.id;
     return res.status(201).send({
       message: `document ${scream.id} created successfully`,
-      resScream
+      newScream
     });
   } catch (err) {
     console.error(err);
@@ -124,7 +123,7 @@ exports.uploadImage = async (req, res) => {
         message: 'Image uploaded successfully'
       });
     } catch (err) {
-      console.log(err);
+      console.error(err);
       return res.status(500).send({ error: 'Something went wrong', err });
     }
   });
@@ -150,6 +149,10 @@ exports.commentOnScream = async (req, res) => {
     if (!scream._createTime) {
       return res.status(404).send({ error: 'Scream Not Found' });
     }
+    await scream.ref.update({
+      commentCount: scream.data().commentCount + 1
+    });
+
     await db.collection('comments').add(newComment);
 
     return res.status(201).send({ message: 'New comment added', newComment });
@@ -189,7 +192,6 @@ exports.likeScream = async (req, res) => {
         };
         await db.collection('likes').add(likeDetails);
         screamData.likeCount = screamData.likeCount + 1;
-        console.log(screamData);
         await screamDocument.update({ likeCount: screamData.likeCount });
 
         return res
@@ -238,6 +240,50 @@ exports.unlikeScream = async (req, res) => {
           .status(201)
           .send({ message: 'scream unliked successfully', screamData });
       }
+    }
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send({ error: err.code });
+  }
+};
+
+exports.deleteScream = async (req, res) => {
+  const screamDocument = db.doc(`/screams/${req.params.screamId}`);
+  const likesQuery = db
+    .collection('likes')
+    .where('screamId', '==', req.params.screamId);
+  const commentQuery = db
+    .collection('comments')
+    .where('screamId', '==', req.params.screamId);
+
+  try {
+    const screamData = await screamDocument.get();
+
+    if (!screamData.exists) {
+      return res.status(404).send({ error: 'Scream doesnt exit' });
+    }
+
+    // if the user is not owner of the scream.
+    if (screamData.data().userHandle !== req.user.handle) {
+      return res.status(401).send({
+        error: 'UnAuthorized, Only scream owners can delete their screams'
+      });
+    } else {
+      await screamDocument.delete();
+
+      // delete likes and comments on that scream
+      const likes = await likesQuery.get();
+      const comments = await commentQuery.get();
+
+      if (!likes.empty) {
+        likes.docs.forEach(async like => await like.ref.delete());
+      }
+
+      if (!comments.empty) {
+        comments.docs.forEach(async comment => await comment.ref.delete());
+      }
+
+      return res.status(200).send({ message: 'Scream deleted successfully' });
     }
   } catch (err) {
     console.error(err);
