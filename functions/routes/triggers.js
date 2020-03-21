@@ -29,13 +29,13 @@ exports.likeNotification = async snapshot => {
 };
 
 exports.unLikeNotification = async snapshot => {
-  //   try {
-  //     await db.doc(`/notifications/${snapshot.id}`).delete();
-  //     return;
-  //   } catch (err) {
-  //     console.error(err);
-  //     return;
-  //   }
+  try {
+    await db.doc(`/notifications/${snapshot.id}`).delete();
+    return;
+  } catch (err) {
+    console.error(err);
+    return;
+  }
 };
 
 exports.commentNotification = async snapshot => {
