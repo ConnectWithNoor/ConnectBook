@@ -46,7 +46,7 @@ app.post('/user/upload/image', protectedRoute, uploadImage);
 app.post('/user', protectedRoute, addUserDetails);
 app.get('/user', protectedRoute, getUserDetails);
 app.get('/user/:handle', getAnyUserDetails);
-app.post('/notification', protectedRoute, markNotificaionsRead);
+app.post('/notifications', protectedRoute, markNotificaionsRead);
 
 exports.api = functions.https.onRequest(app);
 

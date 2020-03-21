@@ -201,16 +201,16 @@ exports.getAnyUserDetails = async (req, res) => {
 };
 
 exports.markNotificaionsRead = async (req, res) => {
-  // try {
-  //   let batch = db.batch();
-  //   req.body.forEach(async notificationId => {
-  //     const notification = db.doc(`/notifications/${notificationId}`);
-  //     batch.update(notification, { read: true });
-  //   });
-  //   await batch.commit();
-  //   return res.status(200).send({ message: 'notifications marked read' });
-  // } catch (err) {
-  //   console.error(err);
-  //   return res.status(500).send({ error: err.message, code: err.code, err });
-  // }
+  try {
+    let batch = db.batch();
+    req.body.forEach(async notificationId => {
+      const notification = db.doc(`/notifications/${notificationId}`);
+      batch.update(notification, { read: true });
+    });
+    await batch.commit();
+    return res.status(200).send({ message: 'notifications marked read' });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send({ error: err.message, code: err.code, err });
+  }
 };
