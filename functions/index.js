@@ -54,8 +54,6 @@ exports.api = functions.https.onRequest(app);
 // app.listen(5000, () => console.log(`Example app listening on port 5000!`));
 // 3:58
 
-// TODO: imgUrl isn't updating on previous comments
-// TODO: delete notifications of the deleted scream
 // --------------SETTING UP---------------------------- //
 
 // like notification trigger

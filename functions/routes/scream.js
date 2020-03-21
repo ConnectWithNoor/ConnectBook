@@ -247,11 +247,17 @@ exports.unlikeScream = async (req, res) => {
 
 exports.deleteScream = async (req, res) => {
   const screamDocument = db.doc(`/screams/${req.params.screamId}`);
+
   const likesQuery = db
     .collection('likes')
     .where('screamId', '==', req.params.screamId);
+
   const commentQuery = db
     .collection('comments')
+    .where('screamId', '==', req.params.screamId);
+
+  const notificationsQuery = db
+    .collection('notifications')
     .where('screamId', '==', req.params.screamId);
 
   try {
@@ -269,9 +275,10 @@ exports.deleteScream = async (req, res) => {
     } else {
       await screamDocument.delete();
 
-      // delete likes and comments on that scream
+      // delete likes comments and notifications of that scream
       const likes = await likesQuery.get();
       const comments = await commentQuery.get();
+      const notifications = await notificationsQuery.get();
 
       if (!likes.empty) {
         likes.docs.forEach(async like => await like.ref.delete());
@@ -279,6 +286,12 @@ exports.deleteScream = async (req, res) => {
 
       if (!comments.empty) {
         comments.docs.forEach(async comment => await comment.ref.delete());
+      }
+
+      if (!notifications.empty) {
+        notifications.docs.forEach(
+          async notification => await notification.ref.delete()
+        );
       }
 
       return res.status(200).send({ message: 'Scream deleted successfully' });
