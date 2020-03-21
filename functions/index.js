@@ -68,6 +68,6 @@ exports.deleteNotificationOnUnline = functions.firestore
   .onDelete(unLikeNotification);
 
 // comment notification trigger
-// exports.createNotificationOnComment = functions.firestore
-//   .document('comments/{id}')
-//   .onCreate(commentNotification);
+exports.createNotificationOnComment = functions.firestore
+  .document('comments/{id}')
+  .onCreate(commentNotification);
