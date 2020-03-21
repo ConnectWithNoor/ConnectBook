@@ -36,6 +36,17 @@ exports.getUserDetails = async (req, res) => {
 
       userData.likes = likes.docs.map(like => like.data());
 
+      const notifications = await db
+        .collection('notifications')
+        .where('recipient', '==', req.user.handle)
+        .orderBy('createdAt', 'desc')
+        .get();
+      userData.notifications = notifications.docs.map(noti => {
+        return {
+          ...noti.data(),
+          notificationId: noti.id
+        };
+      });
       return res.status(200).send({ message: 'user data fetched', userData });
     } else {
       console.error('user data doesnt exist');
@@ -159,3 +170,33 @@ exports.signup = async (req, res) => {
     return res.status(500).send({ error: err.message, code: err.code, err });
   }
 };
+
+exports.getAnyUserDetails = async (req, res) => {
+  const userData = {};
+  try {
+    const userSnap = await db.doc(`/users/${req.params.handle}`).get();
+    if (userSnap.exists) {
+      userData.user = userSnap.data();
+
+      const screamSnap = await db
+        .collection('screams')
+        .where('userHandle', '==', req.params.handle)
+        .orderBy('createdAt', 'desc')
+        .get();
+
+      userData.screams = screamSnap.docs.map(scream => ({
+        ...scream.data(),
+        screamId: scream.id
+      }));
+
+      return res.status(200).send(userData);
+    } else {
+      res.status(404).send({ error: 'User not found' });
+    }
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send({ error: err.message, code: err.code, err });
+  }
+};
+
+exports.markNotificaionRead = async (req, res) => {};

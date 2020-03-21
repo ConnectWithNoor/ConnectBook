@@ -1,4 +1,12 @@
-const { addUserDetails, getUserDetails, signin, signup } = require('./user');
+const {
+  addUserDetails,
+  getUserDetails,
+  signin,
+  signup,
+  getAnyUserDetails,
+  markNotificaionRead
+} = require('./user');
+
 const {
   getAllScreams,
   getScream,
@@ -22,5 +30,7 @@ module.exports = {
   commentOnScream,
   likeScream,
   unlikeScream,
-  deleteScream
+  deleteScream,
+  getAnyUserDetails,
+  markNotificaionRead
 };
