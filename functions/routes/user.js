@@ -41,6 +41,7 @@ exports.getUserDetails = async (req, res) => {
         .where('recipient', '==', req.user.handle)
         .orderBy('createdAt', 'desc')
         .get();
+
       userData.notifications = notifications.docs.map(noti => {
         return {
           ...noti.data(),
