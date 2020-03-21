@@ -19,7 +19,10 @@ const {
   unlikeScream,
   deleteScream,
   getAnyUserDetails,
-  markNotificaionRead
+  markNotificaionsRead,
+  likeNotification,
+  commentNotification,
+  unLikeNotification
 } = require('./routes');
 
 // --------------MIDDLEWARE---------------------------- //
@@ -43,7 +46,7 @@ app.post('/user/upload/image', protectedRoute, uploadImage);
 app.post('/user', protectedRoute, addUserDetails);
 app.get('/user', protectedRoute, getUserDetails);
 app.get('/user/:handle', getAnyUserDetails);
-app.post('/notification', protectedRoute, markNotificaionRead);
+app.post('/notification', protectedRoute, markNotificaionsRead);
 
 exports.api = functions.https.onRequest(app);
 
@@ -51,3 +54,20 @@ exports.api = functions.https.onRequest(app);
 // 3:17
 
 // TODO: imgUrl isn't updating on previous comments
+
+// --------------SETTING UP---------------------------- //
+
+// like notification trigger
+exports.createNotificationOnLike = functions.firestore
+  .document('likes/{id}')
+  .onCreate(likeNotification);
+
+// delete like notification on unlike trigger
+// exports.deleteNotificationOnUnline = functions.firestore
+//   .document('likes/{id}')
+//   .onDelete(unLikeNotification);
+
+// comment notification trigger
+// exports.createNotificationOnComment = functions.firestore
+//   .document('comments/{id}')
+//   .onCreate(commentNotification);

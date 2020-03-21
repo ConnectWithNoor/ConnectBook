@@ -4,7 +4,7 @@ const {
   signin,
   signup,
   getAnyUserDetails,
-  markNotificaionRead
+  markNotificaionsRead
 } = require('./user');
 
 const {
@@ -17,6 +17,12 @@ const {
   unlikeScream,
   deleteScream
 } = require('./scream');
+
+const {
+  likeNotification,
+  commentNotification,
+  unLikeNotification
+} = require('./triggers');
 
 module.exports = {
   addUserDetails,
@@ -32,5 +38,8 @@ module.exports = {
   unlikeScream,
   deleteScream,
   getAnyUserDetails,
-  markNotificaionRead
+  markNotificaionsRead,
+  likeNotification,
+  commentNotification,
+  unLikeNotification
 };
