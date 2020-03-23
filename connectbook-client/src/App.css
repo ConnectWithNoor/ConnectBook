@@ -53,3 +53,24 @@ body {
 .h6 {
   size: 2rem;
 }
+
+/* navbar */
+
+.nav-container {
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+.nav-button {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: white;
+  outline: none;
+  text-decoration: none;
+  padding-right: 1rem;
+}
+
+.nav-button:hover {
+  font-size: 1.75rem;
+  color: white;
+  transition: all 0.2s;
+}

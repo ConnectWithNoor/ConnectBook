@@ -11,15 +11,25 @@ class Navbar extends Component {
     return (
       <div className="h5">
         <AppBar position="fixed">
-          <Toolbar>
-            <Button color="inherit" component={Link} to="/signin">
-              Signin
+          <Toolbar class="nav-container">
+            <Button
+              class="nav-button"
+              color="inherit"
+              component={Link}
+              to="/signin"
+            >
+              Sign in
             </Button>
-            <Button color="inherit" component={Link} to="/">
+            <Button class="nav-button" color="inherit" component={Link} to="/">
               Home
             </Button>
-            <Button color="inherit" component={Link} to="/signup">
-              Signup
+            <Button
+              class="nav-button"
+              color="inherit"
+              component={Link}
+              to="/signup"
+            >
+              Sign up
             </Button>
           </Toolbar>
         </AppBar>
