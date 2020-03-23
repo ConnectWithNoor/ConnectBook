@@ -1,41 +1,54 @@
-import React, { Component } from 'react';
-import Link from 'react-router-dom/Link';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 // MUI
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/styles';
 
-class Navbar extends Component {
-  render() {
-    return (
-      <div className="h5">
-        <AppBar position="fixed">
-          <Toolbar class="nav-container">
-            <Button
-              class="nav-button"
-              color="inherit"
-              component={Link}
-              to="/signin"
-            >
-              Sign in
-            </Button>
-            <Button class="nav-button" color="inherit" component={Link} to="/">
-              Home
-            </Button>
-            <Button
-              class="nav-button"
-              color="inherit"
-              component={Link}
-              to="/signup"
-            >
-              Sign up
-            </Button>
-          </Toolbar>
-        </AppBar>
-      </div>
-    );
+const useStyles = makeStyles({
+  label: {
+    fontSize: '1.6rem',
+    color: 'white'
   }
+});
+
+function Navbar() {
+  const classes = useStyles();
+
+  return (
+    <div className="h5">
+      <AppBar position="fixed">
+        <Toolbar className="nav-container">
+          <Button
+            color="inherit"
+            className={classes.label}
+            component={Link}
+            to="/signin"
+          >
+            Signin
+          </Button>
+          <Button
+            color="inherit"
+            className={classes.label}
+            component={Link}
+            to="/"
+          >
+            Home
+          </Button>
+          <Button
+            color="inherit"
+            className={classes.label}
+            component={Link}
+            to="/signup"
+          >
+            Signup
+          </Button>
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
 }
 
 export default Navbar;

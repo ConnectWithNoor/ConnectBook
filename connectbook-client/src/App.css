@@ -18,7 +18,7 @@ body {
   color: black;
   background: whitesmoke;
   font-weight: 400;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   line-height: 1.7;
   box-sizing: border-box;
   font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -30,28 +30,32 @@ body {
   max-width: 120rem;
 }
 
-.h1 {
+h1 {
   font-size: 3rem;
 }
 
-.h2 {
+h2 {
   font-size: 2.8rem;
 }
 
-.h3 {
+h3 {
   font-size: 2.6rem;
 }
 
-.h4 {
+h4 {
   font-size: 2.4rem;
 }
 
-.h5 {
+h5 {
   font-size: 2.2rem;
 }
 
-.h6 {
-  size: 2rem;
+h6 {
+  font-size: 2rem;
+}
+
+p {
+  font-size: 1.8rem;
 }
 
 /* navbar */
@@ -59,18 +63,4 @@ body {
 .nav-container {
   margin: 0 auto;
   padding: 1.5rem;
-}
-.nav-button {
-  font-size: 1.6rem;
-  font-weight: 500;
-  color: white;
-  outline: none;
-  text-decoration: none;
-  padding-right: 1rem;
-}
-
-.nav-button:hover {
-  font-size: 1.75rem;
-  color: white;
-  transition: all 0.2s;
 }
