@@ -58,9 +58,13 @@ p {
   font-size: 1.8rem;
 }
 
+a:link,
+a:visited {
+  text-decoration: none;
+}
+
 /* navbar */
 
 .nav-container {
   margin: 0 auto;
-  padding: 1.5rem;
 }

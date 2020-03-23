@@ -18,7 +18,7 @@ function Navbar() {
   const classes = useStyles();
 
   return (
-    <div className="h5">
+    <div>
       <AppBar position="fixed">
         <Toolbar className="nav-container">
           <Button

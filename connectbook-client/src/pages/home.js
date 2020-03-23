@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Scream from '../components/Scream';
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 
@@ -9,7 +10,6 @@ class home extends Component {
   async componentDidMount() {
     try {
       const res = await axios.get('/getscreams');
-      console.log(res.data);
       this.setState({ screams: res.data });
     } catch (err) {
       console.error(err);
@@ -18,7 +18,7 @@ class home extends Component {
   render() {
     let recentScreamsMarkup = this.state.screams
       ? this.state.screams.map(scream => (
-          <p key={scream.screamId}>{scream.body}</p>
+          <Scream key={scream.screamId} scream={scream} />
         ))
       : 'loading';
     return (
