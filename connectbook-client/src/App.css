@@ -1,5 +1,55 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap');
+
+/* Reset CSS */
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
 html {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-size: 62.5%;
+  /* 1rem = 10px/16px = 62.5% */
+}
+
+body {
+  color: black;
+  background: whitesmoke;
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 1.7;
+  box-sizing: border-box;
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Ultility Classes */
+.container {
+  margin: 8rem auto 0 auto;
+  max-width: 120rem;
+}
+
+.h1 {
+  font-size: 3rem;
+}
+
+.h2 {
+  font-size: 2.8rem;
+}
+
+.h3 {
+  font-size: 2.6rem;
+}
+
+.h4 {
+  font-size: 2.4rem;
+}
+
+.h5 {
+  font-size: 2.2rem;
+}
+
+.h6 {
+  size: 2rem;
 }
