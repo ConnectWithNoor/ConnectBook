@@ -7,11 +7,12 @@ import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import PropTypes from 'prop-types';
 
 const styles = theme => ({
   card: {
     display: 'flex',
-    marginBottom: '2rem',
+    margin: '2rem auto',
     minHeight: '15rem'
   },
   image: {
@@ -53,5 +54,9 @@ class Scream extends Component {
     );
   }
 }
+
+Scream.protoTypes = {
+  classes: PropTypes.object.isRequired
+};
 
 export default withStyles(styles)(Scream);

@@ -9,7 +9,6 @@ import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles({
   label: {
-    fontSize: '1.6rem',
     color: 'white'
   }
 });
