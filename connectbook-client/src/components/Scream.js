@@ -5,25 +5,29 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 
 const styles = theme => ({
   card: {
     display: 'flex',
-    marginBottom: '2rem'
+    marginBottom: '2rem',
+    minHeight: '15rem'
   },
   image: {
-    minWidth: '20rem'
+    minWidth: '20rem',
+    backgroundSize: 'cover'
   },
   content: {
     padding: '3rem',
-    objectFit: 'cover'
+    height: '10rem'
   }
 });
 
 class Scream extends Component {
   render() {
     const { classes, scream } = this.props;
-    console.log(scream);
+    dayjs.extend(relativeTime);
     return (
       <Card className={classes.card}>
         <CardMedia
@@ -41,7 +45,7 @@ class Scream extends Component {
             {scream.userHandle}
           </Typography>
           <Typography variant="body2" color="textSecondary">
-            {scream.createdAt}
+            {dayjs(scream.createdAt).fromNow()}
           </Typography>
           <Typography variant="body1">{scream.body}</Typography>
         </CardContent>
