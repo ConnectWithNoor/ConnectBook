@@ -7,10 +7,14 @@ import signin from './pages/signin';
 import signup from './pages/signup';
 
 import Navbar from './components/Navbar';
+import AuthRoute from './utilities/AuthRoute';
+import decodeToken from './utilities/decodeToken';
 
 import './App.css';
 
 function App() {
+  const authenticated = decodeToken('idToken');
+
   return (
     <MuiThemeProvider theme={theme}>
       <Router>
@@ -18,8 +22,16 @@ function App() {
         <div className="container">
           <Switch>
             <Route exact path="/" component={home} />
-            <Route path="/signin" component={signin} />
-            <Route path="/signup" component={signup} />
+            <AuthRoute
+              path="/signin"
+              component={signin}
+              authenticated={authenticated}
+            />
+            <AuthRoute
+              path="/signup"
+              component={signup}
+              authenticated={authenticated}
+            />
           </Switch>
         </div>
       </Router>

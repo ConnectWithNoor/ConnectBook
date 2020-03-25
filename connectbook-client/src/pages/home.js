@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import Scream from '../components/Scream';
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
+import decodeToken from '../utilities/decodeToken';
 
 class home extends Component {
   state = {
     screams: null
   };
   async componentDidMount() {
+    decodeToken();
     try {
       const res = await axios.get('/getscreams');
       this.setState({ screams: res.data });
