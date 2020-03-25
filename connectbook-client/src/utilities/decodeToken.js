@@ -5,9 +5,9 @@ export default idToken => {
 
   if (token) {
     const decodedToken = jwtDecode(token);
-    const timeExp = new Date(decodedToken.exp * 1000);
+    const expiryTime = new Date(decodedToken.exp * 1000);
 
-    if (timeExp < Date.now()) {
+    if (expiryTime < Date.now()) {
       // if token is expired
       window.location.href = '/login';
       return false;
