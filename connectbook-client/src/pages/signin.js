@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import PropTypes from 'prop-types';
-import validate from 'validate.js';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
@@ -12,8 +11,6 @@ import Button from '@material-ui/core/Button';
 import { CircularProgress } from '@material-ui/core/';
 
 import AppIcon from '../images/icon.png';
-
-import validateConstrains from '../utilities/validateConstrains';
 
 const style = {
   form: {
@@ -46,43 +43,30 @@ class signin extends Component {
   handleSubmit = async e => {
     e.preventDefault();
 
-    if (validate({ from: this.state.email }, validateConstrains)) {
-      this.setState(() => {
-        return {
-          error: 'Please enter a valid email address'
-        };
-      });
-    } else if (validate.isEmpty(this.state.password)) {
-      this.setState(() => {
-        return {
-          error: 'Field cannot be empty'
-        };
-      });
-    } else {
+    this.setState({
+      loading: false,
+      error: ''
+    });
+
+    const userData = {
+      email: this.state.email,
+      password: this.state.password
+    };
+
+    try {
+      const res = await axios.post('/signin', userData);
+      console.log(res.data);
       this.setState({
-        loading: true,
-        error: ''
+        loading: false
       });
-
-      const userData = {
-        email: this.state.email,
-        password: this.state.password
-      };
-
-      try {
-        const res = await axios.post('/signin', userData);
-        console.log(res.data);
-        this.setState({
-          loading: false
-        });
-        this.props.history.push('/');
-      } catch (err) {
-        this.setState({
-          error: 'Invalid Credentials. Please try again',
-          loading: false
-        });
-      }
+      this.props.history.push('/');
+    } catch (err) {
+      this.setState({
+        error: err.response.data.error,
+        loading: false
+      });
     }
+    // }
   };
 
   handleChange = e => {
