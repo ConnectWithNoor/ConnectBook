@@ -10,6 +10,9 @@ import Navbar from './components/Navbar';
 import AuthRoute from './utilities/AuthRoute';
 import decodeToken from './utilities/decodeToken';
 
+import { Provider } from 'react-redux';
+import store from './redux/store';
+
 import './App.css';
 
 function App() {
@@ -17,24 +20,26 @@ function App() {
 
   return (
     <MuiThemeProvider theme={theme}>
-      <Router>
-        <Navbar />
-        <div className="container">
-          <Switch>
-            <Route exact path="/" component={home} />
-            <AuthRoute
-              path="/signin"
-              component={signin}
-              authenticated={authenticated}
-            />
-            <AuthRoute
-              path="/signup"
-              component={signup}
-              authenticated={authenticated}
-            />
-          </Switch>
-        </div>
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <Navbar />
+          <div className="container">
+            <Switch>
+              <Route exact path="/" component={home} />
+              <AuthRoute
+                path="/signin"
+                component={signin}
+                authenticated={authenticated}
+              />
+              <AuthRoute
+                path="/signup"
+                component={signup}
+                authenticated={authenticated}
+              />
+            </Switch>
+          </div>
+        </Router>
+      </Provider>
     </MuiThemeProvider>
   );
 }
