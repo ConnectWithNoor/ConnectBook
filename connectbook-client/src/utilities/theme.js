@@ -22,5 +22,44 @@ export default createMuiTheme({
     fontStyle: 'normal',
     fontSize: 16,
     htmlFontSize: 10
+  },
+  form: {
+    textAlign: 'center'
+  },
+  textField: {
+    color: 'red',
+    marginBottom: '1rem'
+  },
+  button: {
+    color: '#fff',
+    margin: '2rem auto',
+    position: 'relative'
+  },
+  error: {
+    color: 'red'
+  },
+  progress: {
+    position: 'absolute'
   }
 });
+
+export const style = {
+  form: {
+    textAlign: 'center'
+  },
+  textField: {
+    color: 'red',
+    marginBottom: '1rem'
+  },
+  button: {
+    color: '#fff',
+    margin: '2rem auto',
+    position: 'relative'
+  },
+  error: {
+    color: 'red'
+  },
+  progress: {
+    position: 'absolute'
+  }
+};

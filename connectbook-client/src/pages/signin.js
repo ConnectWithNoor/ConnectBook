@@ -11,27 +11,7 @@ import Button from '@material-ui/core/Button';
 import { CircularProgress } from '@material-ui/core/';
 
 import AppIcon from '../images/icon.png';
-
-const style = {
-  form: {
-    textAlign: 'center'
-  },
-  textField: {
-    color: 'red',
-    marginBottom: '1rem'
-  },
-  button: {
-    color: '#fff',
-    margin: '2rem auto',
-    position: 'relative'
-  },
-  error: {
-    color: 'red'
-  },
-  progress: {
-    position: 'absolute'
-  }
-};
+import { style } from '../utilities/theme';
 
 class signin extends Component {
   state = {
@@ -44,7 +24,7 @@ class signin extends Component {
     e.preventDefault();
 
     this.setState({
-      loading: false,
+      loading: true,
       error: ''
     });
 
@@ -55,7 +35,7 @@ class signin extends Component {
 
     try {
       const res = await axios.post('/signin', userData);
-      console.log(res.data);
+      await localStorage.setItem('idToken', `Bearer ${res.data.token}`);
       this.setState({
         loading: false
       });
@@ -83,7 +63,7 @@ class signin extends Component {
         <Grid item sm />
         <Grid item sm>
           <img src={AppIcon} alt="monkey" />
-          <Typography variant="h4">Login</Typography>
+          <Typography variant="h4">Signin</Typography>
           <form noValidate onSubmit={this.handleSubmit}>
             <TextField
               id="email"
