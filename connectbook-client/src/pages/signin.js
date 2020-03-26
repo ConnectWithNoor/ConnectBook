@@ -21,7 +21,8 @@ class signin extends Component {
     password: '',
     error: null
   };
-  handleSubmit = async e => {
+
+  handleSubmit = e => {
     e.preventDefault();
 
     const userData = {

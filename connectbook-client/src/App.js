@@ -17,7 +17,6 @@ import './App.css';
 
 function App() {
   const authenticated = decodeToken('idToken');
-
   return (
     <MuiThemeProvider theme={theme}>
       <Provider store={store}>
