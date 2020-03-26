@@ -18,7 +18,8 @@ import { signinUser } from '../redux/actions/userActions';
 class signin extends Component {
   state = {
     email: '',
-    password: ''
+    password: '',
+    error: null
   };
 
   handleSubmit = e => {
@@ -40,9 +41,10 @@ class signin extends Component {
   render() {
     const {
       classes,
-      ui: { loading, error }
+      ui: { loading, errors }
     } = this.props;
     const { email, password } = this.state;
+    console.log(errors);
     return (
       <Grid container className={classes.form}>
         <Grid item sm />
@@ -73,7 +75,7 @@ class signin extends Component {
               required
             />
             <Typography variant="body1" className={classes.error}>
-              {error}
+              {errors}
             </Typography>
             <Button
               type="submit"

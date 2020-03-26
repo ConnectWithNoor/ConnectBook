@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+import { connect } from 'react-redux';
+import { signupUser } from '../redux/actions/userActions';
+
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
@@ -18,17 +21,10 @@ class signup extends Component {
     email: '',
     password: '',
     confirmPassword: '',
-    handle: '',
-    loading: false,
-    error: ''
+    handle: ''
   };
   handleSubmit = async e => {
     e.preventDefault();
-
-    this.setState({
-      loading: true,
-      error: ''
-    });
 
     const newUserData = {
       email: this.state.email,
@@ -37,21 +33,7 @@ class signup extends Component {
       handle: this.state.handle
     };
 
-    try {
-      const res = await axios.post('/signup', newUserData);
-      console.log(res.data);
-      await localStorage.setItem('idToken', `Bearer ${res.data.token}`);
-      this.setState({
-        loading: false
-      });
-      this.props.history.push('/');
-    } catch (err) {
-      this.setState({
-        error: err.response.data.error,
-        loading: false
-      });
-    }
-    // }
+    this.props.signupUser(newUserData, this.props.history);
   };
 
   handleChange = e => {
@@ -61,15 +43,11 @@ class signup extends Component {
   };
 
   render() {
-    const { classes } = this.props;
     const {
-      error,
-      loading,
-      email,
-      password,
-      confirmPassword,
-      handle
-    } = this.state;
+      classes,
+      ui: { loading, errors }
+    } = this.props;
+    const { email, password, confirmPassword, handle } = this.state;
     return (
       <Grid container className={classes.form}>
         <Grid item sm />
@@ -122,7 +100,7 @@ class signup extends Component {
               required
             />
             <Typography variant="body1" className={classes.error}>
-              {error}
+              {errors}
             </Typography>
             <Button
               type="submit"
@@ -148,7 +126,22 @@ class signup extends Component {
 }
 
 signup.protoTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  ui: PropTypes.object.isRequired,
+  signupUser: PropTypes.func.isRequired
 };
 
-export default withStyles(style)(signup);
+const mapStateToProps = state => ({
+  user: state.user,
+  ui: state.ui
+});
+
+const mapActionsToProps = {
+  signupUser
+};
+
+export default connect(
+  mapStateToProps,
+  mapActionsToProps
+)(withStyles(style)(signup));

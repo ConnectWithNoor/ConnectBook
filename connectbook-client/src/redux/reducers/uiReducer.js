@@ -22,7 +22,8 @@ export default (state = initialState, action) => {
     case LOADING_UI:
       return {
         ...state,
-        loading: true
+        loading: true,
+        errors: null
       };
     default:
       return state;
