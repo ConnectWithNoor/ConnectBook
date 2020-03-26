@@ -3,7 +3,7 @@ import Scream from '../components/Scream';
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import decodeToken from '../utilities/decodeToken';
-
+import Profile from '../components/Profile';
 class home extends Component {
   state = {
     screams: null
@@ -30,7 +30,7 @@ class home extends Component {
         </Grid>
 
         <Grid item sm={4} xs={12}>
-          <p>Profile...</p>
+          <Profile />
         </Grid>
       </Grid>
     );
