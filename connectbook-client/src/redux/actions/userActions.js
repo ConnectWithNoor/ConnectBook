@@ -13,7 +13,7 @@ export const signinUser = (userData, history) => async dispatch => {
 
   try {
     const res = await axios.post('/signin', userData);
-    setAuthorizationHeader(res.data.token);
+    await setAuthorizationHeader(res.data.token);
     dispatch(getUserData());
     // dispatch({ type: CLEAR_ERRORS });
     history.push('/');
@@ -29,7 +29,7 @@ export const signupUser = (newUserData, history) => async dispatch => {
 
   try {
     const res = await axios.post('/signup', newUserData);
-    setAuthorizationHeader(res.data.token);
+    await setAuthorizationHeader(res.data.token);
     dispatch(getUserData());
     // dispatch({ type: CLEAR_ERRORS });
     history.push('/');
@@ -52,11 +52,13 @@ export const getUserData = () => async dispatch => {
     const res = await axios.get('/user');
     dispatch({ type: SET_USER, payload: res.data });
   } catch (err) {
-    console.log(err);
+    console.log(err.response);
   }
 };
 
 const setAuthorizationHeader = token => {
-  localStorage.setItem('idToken', `Bearer ${token}`);
-  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  const bearerToken = `Bearer ${token}`;
+  console.log(bearerToken);
+  localStorage.setItem('idToken', bearerToken);
+  axios.defaults.headers.common['Authorization'] = bearerToken;
 };

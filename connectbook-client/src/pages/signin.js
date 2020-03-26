@@ -44,7 +44,6 @@ class signin extends Component {
       ui: { loading, errors }
     } = this.props;
     const { email, password } = this.state;
-    console.log(errors);
     return (
       <Grid container className={classes.form}>
         <Grid item sm />
