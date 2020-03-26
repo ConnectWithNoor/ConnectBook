@@ -16,7 +16,7 @@ import store from './redux/store';
 import './App.css';
 
 function App() {
-  const authenticated = decodeToken('idToken');
+  decodeToken('idToken');
   return (
     <MuiThemeProvider theme={theme}>
       <Provider store={store}>
@@ -25,16 +25,8 @@ function App() {
           <div className="container">
             <Switch>
               <Route exact path="/" component={home} />
-              <AuthRoute
-                path="/signin"
-                component={signin}
-                authenticated={authenticated}
-              />
-              <AuthRoute
-                path="/signup"
-                component={signup}
-                authenticated={authenticated}
-              />
+              <AuthRoute path="/signin" component={signin} />
+              <AuthRoute path="/signup" component={signup} />
             </Switch>
           </div>
         </Router>
