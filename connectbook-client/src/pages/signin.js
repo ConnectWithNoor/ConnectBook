@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 import Grid from '@material-ui/core/Grid';
@@ -13,40 +12,23 @@ import { CircularProgress } from '@material-ui/core/';
 import AppIcon from '../images/icon.png';
 import { style } from '../utilities/theme';
 
+import { connect } from 'react-redux';
+import { signinUser } from '../redux/actions/userActions';
+
 class signin extends Component {
   state = {
     email: '',
     password: '',
-    loading: false,
     error: null
   };
   handleSubmit = async e => {
     e.preventDefault();
 
-    this.setState({
-      loading: true,
-      error: ''
-    });
-
     const userData = {
       email: this.state.email,
       password: this.state.password
     };
-
-    try {
-      const res = await axios.post('/signin', userData);
-      await localStorage.setItem('idToken', `Bearer ${res.data.token}`);
-      this.setState({
-        loading: false
-      });
-      this.props.history.push('/');
-    } catch (err) {
-      this.setState({
-        error: err.response.data.error,
-        loading: false
-      });
-    }
-    // }
+    this.props.signinUser(userData, this.props.history);
   };
 
   handleChange = e => {
@@ -56,8 +38,11 @@ class signin extends Component {
   };
 
   render() {
-    const { classes } = this.props;
-    const { error, loading, email, password } = this.state;
+    const {
+      classes,
+      ui: { loading }
+    } = this.props;
+    const { error, email, password } = this.state;
     return (
       <Grid container className={classes.form}>
         <Grid item sm />
@@ -114,7 +99,22 @@ class signin extends Component {
 }
 
 signin.protoTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  signinUser: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+  ui: PropTypes.object.isRequired
 };
 
-export default withStyles(style)(signin);
+const mapStateToProps = state => ({
+  user: state.user,
+  ui: state.ui
+});
+
+const mapActionstoProps = {
+  signinUser
+};
+
+export default connect(
+  mapStateToProps,
+  mapActionstoProps
+)(withStyles(style)(signin));
