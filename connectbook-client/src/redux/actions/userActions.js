@@ -8,10 +8,11 @@ export const signinUser = (userData, history) => async dispatch => {
     const res = await axios.post('/signin', userData);
     localStorage.setItem('idToken', `Bearer ${res.data.token}`);
     axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
-    await dispatch(getUserData());
-    await dispatch({ type: CLEAR_ERRORS });
+    dispatch(getUserData());
+    dispatch({ type: CLEAR_ERRORS });
     history.push('/');
   } catch (err) {
+    console.log(err.response.data.error);
     dispatch({ type: SET_ERRORS, payload: err.response.data.error });
   }
 };
@@ -19,7 +20,7 @@ export const signinUser = (userData, history) => async dispatch => {
 export const getUserData = () => async dispatch => {
   try {
     const res = await axios.get('/user');
-    await dispatch({ type: SET_USER, payload: res.data });
+    dispatch({ type: SET_USER, payload: res.data });
   } catch (err) {
     console.log(err);
   }

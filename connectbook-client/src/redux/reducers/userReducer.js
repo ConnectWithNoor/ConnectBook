@@ -18,6 +18,7 @@ export default (state = initialState, action) => {
       return initialState;
     case SET_USER:
       return {
+        ...state,
         authenticated: true,
         ...action.payload
       };
