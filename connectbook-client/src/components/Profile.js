@@ -38,10 +38,10 @@ const styles = {
     width: '60%',
     display: 'flex',
     marginBottom: '1rem',
-    marginLeft: '25%'
+    marginLeft: '10%'
   },
   text: {
-    marginLeft: '10%'
+    marginLeft: '15%'
   },
   buttons: {
     marginTop: '2rem'
