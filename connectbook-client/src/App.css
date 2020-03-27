@@ -68,3 +68,8 @@ a:visited {
 .nav-container {
   margin: 0 auto;
 }
+
+hr {
+  border: none;
+  outline: none;
+}

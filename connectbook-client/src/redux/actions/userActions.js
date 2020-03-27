@@ -49,7 +49,11 @@ export const signoutUser = () => dispatch => {
 export const getUserData = () => async dispatch => {
   dispatch({ type: LOADING_USER });
   try {
-    const res = await axios.get('/user');
+    const res = await axios.get('/user', {
+      headers: {
+        Authorization: localStorage.getItem('idToken')
+      }
+    });
     dispatch({ type: SET_USER, payload: res.data });
   } catch (err) {
     console.log(err.response);
@@ -57,8 +61,6 @@ export const getUserData = () => async dispatch => {
 };
 
 const setAuthorizationHeader = token => {
-  const bearerToken = `Bearer ${token}`;
-  console.log(bearerToken);
-  localStorage.setItem('idToken', bearerToken);
-  axios.defaults.headers.common['Authorization'] = bearerToken;
+  localStorage.setItem('idToken', `Bearer ${token}`);
+  // axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 };
