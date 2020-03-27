@@ -15,6 +15,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 import MuiLink from '@material-ui/core/Link';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 const styles = {
@@ -24,7 +25,8 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     textAlign: 'center',
-    padding: '3rem'
+    padding: '2rem',
+    marginTop: '1rem'
   },
   image: {
     borderRadius: '100rem',
@@ -32,13 +34,16 @@ const styles = {
   },
   handle: {
     fontSize: '2.5rem',
-    marginBottom: '1rem'
+    marginBottom: '2rem'
   },
   content: {
-    width: '60%',
+    width: '65%',
     display: 'flex',
     marginBottom: '1rem',
-    marginLeft: '10%'
+    marginLeft: '10%',
+    '&:last-child': {
+      marginBottom: '0rem'
+    }
   },
   text: {
     marginLeft: '15%'
@@ -56,89 +61,6 @@ class Profile extends Component {
       classes,
       user: { userData, loading, authenticated }
     } = this.props;
-
-    // let profileMarkup = !loading ? (
-    //   authenticated ? (
-    //     <Paper className={classes.paper}>
-    //       <div className={classes.profile}>
-    //         <div className="profile-image">
-    //           <img src={userData.credentials.imageUrl} alt="profile" />
-    //         </div>
-    //         <hr />
-    //         <div className="profile-details">
-    //           <MuiLink
-    //             component={Link}
-    //             to={`/users/${userData.credentials.handle}`}
-    //             color="primary"
-    //             varient="h5"
-    //           >
-    //             @{userData.credentials.handle}
-    //           </MuiLink>
-    //           <hr />
-    //           {userData.credentials.bio && (
-    //             <Typography varient="body2">
-    //               {userData.credentials.bio}
-    //             </Typography>
-    //           )}
-    //           <hr />
-    //           {userData.credentials.location && (
-    //             <React.Fragment>
-    //               <LocationOn color="primary" />{' '}
-    //               <Typography varient="body2">
-    //                 {userData.credentials.location}
-    //               </Typography>
-    //               <hr />
-    //             </React.Fragment>
-    //           )}
-    //           {userData.credentials.website && (
-    //             <React.Fragment>
-    //               <Linkicon color="primary" />
-    //               <a
-    //                 href={userData.credentials.website}
-    //                 target="_blank"
-    //                 rel="noopener noreferrer"
-    //               >
-    //                 {' '}
-    //                 {userData.credentials.website}
-    //               </a>
-    //               <hr />
-    //             </React.Fragment>
-    //           )}
-    //           <CalendarToday color="primary" />{' '}
-    //           <Typography varient="body2">
-    //             {dayjs(userData.credentials.createdAt).format('MMM YYYY')}
-    //           </Typography>
-    //         </div>
-    //       </div>
-    //     </Paper>
-    //   ) : (
-    //     <Paper className={classes.paper}>
-    //       <Typography varient="body2" align="center">
-    //         No profile found, please login again
-    //         <div className={classes.buttons}>
-    //           <Button
-    //             varient="contained"
-    //             color="primary"
-    //             component={Link}
-    //             to="/signin"
-    //           >
-    //             Login
-    //           </Button>
-    //           <Button
-    //             varient="contained"
-    //             color="secondary"
-    //             component={Link}
-    //             to="/signup"
-    //           >
-    //             signup
-    //           </Button>
-    //         </div>
-    //       </Typography>
-    //     </Paper>
-    //   )
-    // ) : (
-    //   <p>loading ...</p>
-    // );
 
     let profileMarkup = !loading ? (
       authenticated ? (
@@ -210,7 +132,9 @@ class Profile extends Component {
                 component="span"
                 className={classes.text}
               >
-                {dayjs(userData.credentials.createdAt).format('MMM YYYY')}
+                {`Joined ${dayjs(userData.credentials.createdAt).format(
+                  'MMM YYYY'
+                )}`}
               </Typography>
             </div>
           </CardContent>
@@ -243,7 +167,7 @@ class Profile extends Component {
         </Card>
       )
     ) : (
-      <p>loading</p>
+      <LinearProgress color="primary" size={30} />
     );
 
     return profileMarkup;
