@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { connect } from 'react-redux';
 import Link from 'react-router-dom/Link';
+import { uploadImage, signoutUser } from '../redux/actions/userActions';
 
 import LocationOn from '@material-ui/icons/LocationOn';
 import Linkicon from '@material-ui/icons/Link';
@@ -25,12 +26,14 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     textAlign: 'center',
-    padding: '2rem',
-    marginTop: '1rem'
+    padding: '2rem'
   },
+  image_Wrapper: {},
   image: {
-    borderRadius: '100rem',
-    width: '50%'
+    height: '20rem',
+    width: '20rem',
+    borderRadius: '50%',
+    objectFit: 'cover'
   },
   handle: {
     fontSize: '2.5rem',
@@ -53,9 +56,19 @@ const styles = {
   },
   buttonItem: {
     marginRight: '2rem'
+  },
+  fileUpload: {
+    marginTop: '1.5rem',
+    textTransform: 'uppercase'
   }
 };
 class Profile extends Component {
+  handleImageChange = async e => {
+    const image = e.target.files[0];
+    const formData = new FormData();
+    formData.append('image', image, image.name);
+    this.props.uploadImage(formData);
+  };
   render() {
     const {
       classes,
@@ -65,12 +78,23 @@ class Profile extends Component {
     let profileMarkup = !loading ? (
       authenticated ? (
         <Card className={classes.card}>
-          <CardMedia
-            component="img"
-            alt={`username ${userData.credentials.handle}`}
-            src={userData.credentials.imageUrl}
-            className={classes.image}
-          />
+          <div className={classes.image_Wrapper}>
+            <CardMedia
+              component="img"
+              alt={`username ${userData.credentials.handle}`}
+              src={userData.credentials.imageUrl}
+              className={classes.image}
+            />
+          </div>
+          <Button
+            variant="contained"
+            className={classes.fileUpload}
+            component="label"
+            onChange={this.handleImageChange}
+          >
+            upload image
+            <input type="file" hidden="hidden" />
+          </Button>
           <CardContent className={classes.card}>
             <MuiLink
               component={Link}
@@ -176,11 +200,21 @@ class Profile extends Component {
 
 Profile.propTypes = {
   user: PropTypes.object.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  signoutUser: PropTypes.func.isRequired,
+  uploadImage: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   user: state.user
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(Profile));
+const mapActionstoProps = {
+  signoutUser,
+  uploadImage
+};
+
+export default connect(
+  mapStateToProps,
+  mapActionstoProps
+)(withStyles(styles)(Profile));
