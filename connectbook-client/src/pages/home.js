@@ -4,6 +4,9 @@ import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import decodeToken from '../utilities/decodeToken';
 import Profile from '../components/Profile';
+
+import LinearProgress from '@material-ui/core/LinearProgress';
+
 class home extends Component {
   state = {
     screams: null
@@ -18,11 +21,13 @@ class home extends Component {
     }
   }
   render() {
-    let recentScreamsMarkup = this.state.screams
-      ? this.state.screams.map(scream => (
-          <Scream key={scream.screamId} scream={scream} />
-        ))
-      : 'loading';
+    let recentScreamsMarkup = this.state.screams ? (
+      this.state.screams.map(scream => (
+        <Scream key={scream.screamId} scream={scream} />
+      ))
+    ) : (
+      <LinearProgress color="primary" size={30} />
+    );
     return (
       <Grid container spacing={4}>
         <Grid item sm={8} xs={12}>

@@ -75,6 +75,21 @@ export const uploadImage = formData => async dispatch => {
   }
 };
 
+export const editUserDetails = userDetails => async dispatch => {
+  dispatch({ type: LOADING_USER });
+
+  try {
+    await axios.post('/user', userDetails, {
+      headers: {
+        Authorization: localStorage.getItem('idToken')
+      }
+    });
+    dispatch(getUserData());
+  } catch (err) {
+    console.log(err.response.data);
+  }
+};
+
 const setAuthorizationHeader = token => {
   localStorage.setItem('idToken', `Bearer ${token}`);
   // axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;

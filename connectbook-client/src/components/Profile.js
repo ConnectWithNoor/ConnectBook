@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { connect } from 'react-redux';
 import Link from 'react-router-dom/Link';
+import EditDetails from './EditDetails';
 import { uploadImage, signoutUser } from '../redux/actions/userActions';
 
 import LocationOn from '@material-ui/icons/LocationOn';
 import Linkicon from '@material-ui/icons/Link';
 import AccountBoxOutlinedIcon from '@material-ui/icons/AccountBoxOutlined';
 import CalendarToday from '@material-ui/icons/CalendarToday';
+import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
 
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -18,6 +20,8 @@ import CardContent from '@material-ui/core/CardContent';
 import MuiLink from '@material-ui/core/Link';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const styles = {
   card: {
@@ -26,7 +30,7 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     textAlign: 'center',
-    padding: '2rem'
+    padding: '1rem'
   },
   image_Wrapper: {},
   image: {
@@ -60,15 +64,25 @@ const styles = {
   fileUpload: {
     marginTop: '1.5rem',
     textTransform: 'uppercase'
+  },
+  icons: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between'
   }
 };
 class Profile extends Component {
-  handleImageChange = async e => {
+  handleImageChange = e => {
     const image = e.target.files[0];
     const formData = new FormData();
     formData.append('image', image, image.name);
     this.props.uploadImage(formData);
   };
+
+  handleLogout = () => {
+    this.props.signoutUser();
+  };
+
   render() {
     const {
       classes,
@@ -160,6 +174,14 @@ class Profile extends Component {
                   'MMM YYYY'
                 )}`}
               </Typography>
+            </div>
+            <div className={classes.icons}>
+              <Tooltip placement="top" title="Signout">
+                <IconButton onClick={this.handleLogout} color="secondary">
+                  <KeyboardReturn color="secondary" />
+                </IconButton>
+              </Tooltip>
+              <EditDetails />
             </div>
           </CardContent>
         </Card>

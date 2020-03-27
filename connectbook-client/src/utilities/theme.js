@@ -43,7 +43,7 @@ export default createMuiTheme({
   }
 });
 
-export const style = {
+export const themeStyles = {
   form: {
     textAlign: 'center'
   },
@@ -61,5 +61,9 @@ export const style = {
   },
   progress: {
     position: 'absolute'
+  },
+  text: {
+    textAlign: 'center',
+    margin: '1rem auto'
   }
 };

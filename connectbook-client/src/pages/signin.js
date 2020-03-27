@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import { CircularProgress } from '@material-ui/core/';
 
 import AppIcon from '../images/icon.png';
-import { style } from '../utilities/theme';
+import { themeStyles } from '../utilities/theme';
 
 import { connect } from 'react-redux';
 import { signinUser } from '../redux/actions/userActions';
@@ -118,4 +118,4 @@ const mapActionstoProps = {
 export default connect(
   mapStateToProps,
   mapActionstoProps
-)(withStyles(style)(signin));
+)(withStyles(themeStyles)(signin));

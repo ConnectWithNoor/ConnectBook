@@ -1,11 +1,1 @@
-export default {
-  from: {
-    email: true
-  },
-  confirmPassword: {
-    equality: 'password',
-    length: {
-      minimum: 8
-    }
-  }
-};
+export default { website: { url: true } };

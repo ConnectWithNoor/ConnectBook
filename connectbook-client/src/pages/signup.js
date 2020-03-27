@@ -13,7 +13,7 @@ import Button from '@material-ui/core/Button';
 import { CircularProgress } from '@material-ui/core/';
 
 import AppIcon from '../images/icon.png';
-import { style } from '../utilities/theme';
+import { themeStyles } from '../utilities/theme';
 
 class signup extends Component {
   state = {
@@ -143,4 +143,4 @@ const mapActionsToProps = {
 export default connect(
   mapStateToProps,
   mapActionsToProps
-)(withStyles(style)(signup));
+)(withStyles(themeStyles)(signup));
