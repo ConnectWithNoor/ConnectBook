@@ -1,15 +1,13 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-
+import PostScream from './PostScream';
 // MUI
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/styles';
-import MyIconButton from './IconButton';
 
-import AddIcon from '@material-ui/icons/Add';
 import HomeIcon from '@material-ui/icons/Home';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 
@@ -30,17 +28,15 @@ function Navbar(props) {
         <Toolbar className="nav-container">
           {authenticated ? (
             <Fragment>
-              <MyIconButton tip="Post a Scream!">
-                <AddIcon />
-              </MyIconButton>
-              <Link to="/">
+              <PostScream />
+              {/* <Link to="/">
                 <MyIconButton tip="Home">
                   <HomeIcon />
                 </MyIconButton>
               </Link>
               <MyIconButton tip="Notifications">
                 <NotificationsIcon />
-              </MyIconButton>
+              </MyIconButton> */}
             </Fragment>
           ) : (
             <Fragment>
