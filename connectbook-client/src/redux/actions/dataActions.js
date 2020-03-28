@@ -2,7 +2,7 @@ import {
   SET_SCREAMS,
   LOADING_DATA,
   LIKE_SCREAM,
-  UNLINE_SCREAM
+  UNLIKE_SCREAM
 } from '../types';
 import axios from 'axios';
 
@@ -33,7 +33,7 @@ export const likeScream = screamId => async dispatch => {
 export const unlikeScream = screamId => async dispatch => {
   try {
     const res = axios.get(`/scream/${screamId}/unlike`);
-    dispatch({ type: UNLINE_SCREAM, payload: res.data });
+    dispatch({ type: UNLIKE_SCREAM, payload: res.data });
   } catch (err) {
     console.log(err);
   }

@@ -16,4 +16,4 @@ export const LOADING_DATA = 'LOADING_DATA';
 export const SET_SCREAMS = 'SET_SCREAMS';
 export const SET_SCREAM = 'SET_SCREAM';
 export const LIKE_SCREAM = 'LIKE_SCREAM';
-export const UNLINE_SCREAM = 'UNLINE_SCREAM';
+export const UNLIKE_SCREAM = 'UNLINE_SCREAM';

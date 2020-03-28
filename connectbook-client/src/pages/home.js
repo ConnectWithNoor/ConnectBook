@@ -1,32 +1,27 @@
 import React, { Component } from 'react';
 import Scream from '../components/Scream';
-import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import decodeToken from '../utilities/decodeToken';
 import Profile from '../components/Profile';
+import { connect } from 'react-redux';
+import { getScreams } from '../redux/actions/dataActions';
+import PropTypes from 'prop-types';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 class home extends Component {
-  state = {
-    screams: null
-  };
   async componentDidMount() {
     decodeToken();
-    try {
-      const res = await axios.get('/getscreams');
-      this.setState({ screams: res.data });
-    } catch (err) {
-      console.error(err);
-    }
+    this.props.getScreams();
   }
+
   render() {
-    let recentScreamsMarkup = this.state.screams ? (
-      this.state.screams.map(scream => (
-        <Scream key={scream.screamId} scream={scream} />
-      ))
-    ) : (
+    const { screams, loading } = this.props.data;
+
+    let recentScreamsMarkup = loading ? (
       <LinearProgress color="primary" size={30} />
+    ) : (
+      screams.map(scream => <Scream key={scream.screamId} scream={scream} />)
     );
     return (
       <Grid container spacing={4}>
@@ -42,4 +37,17 @@ class home extends Component {
   }
 }
 
-export default home;
+home.propTypes = {
+  getScreams: PropTypes.func.isRequired,
+  data: PropTypes.object.isRequired
+};
+
+const stateStateToProps = state => ({
+  data: state.data
+});
+
+const stateActionToProps = {
+  getScreams
+};
+
+export default connect(stateStateToProps, stateActionToProps)(home);

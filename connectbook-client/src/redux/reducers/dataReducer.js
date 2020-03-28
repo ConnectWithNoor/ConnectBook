@@ -1,10 +1,9 @@
 import {
   SET_SCREAMS,
   LIKE_SCREAM,
-  UNLINE_SCREAM,
+  UNLIKE_SCREAM,
   LOADING_DATA
 } from '../types';
-import { unlikeScream } from '../actions/dataActions';
 
 const initialState = {
   screams: [],
@@ -26,7 +25,7 @@ export default (state = initialState, action) => {
         loading: false
       };
     case LIKE_SCREAM:
-    case UNLINE_SCREAM:
+    case UNLIKE_SCREAM:
       const index = state.screams.findIndex(
         scream => scream.screamId === action.payload.screamId
       );
