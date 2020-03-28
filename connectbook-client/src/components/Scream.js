@@ -34,10 +34,13 @@ const styles = theme => ({
 
 class Scream extends Component {
   likedScream = () => {
-    const { user, scream } = this.props;
+    const {
+      user: { userData },
+      scream
+    } = this.props;
     if (
-      user.likes &&
-      user.likes.find(like => like.screamId === scream.screamId)
+      userData.likes &&
+      userData.likes.find(like => like.screamId === scream.screamId)
     ) {
       return true;
     }

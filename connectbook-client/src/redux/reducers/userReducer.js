@@ -11,8 +11,7 @@ const initialState = {
   authenticated: false,
   loading: false,
   credentials: {},
-  likes: [],
-  notifications: []
+  userData: {}
 };
 
 export default (state = initialState, action) => {
@@ -40,20 +39,26 @@ export default (state = initialState, action) => {
     case LIKE_SCREAM:
       return {
         ...state,
-        likes: [
-          ...state.likes,
-          {
-            userHandle: state.credentials.userHandle,
-            screamId: action.payload.screamId
-          }
-        ]
+        userData: {
+          ...state.userData,
+          likes: [
+            ...state.userData.likes,
+            {
+              userHandle: action.payload.userHandle,
+              screamId: action.payload.screamId
+            }
+          ]
+        }
       };
     case UNLIKE_SCREAM:
       return {
         ...state,
-        likes: state.likes.filter(
-          like => like.screamId !== action.payload.screamId
-        )
+        userData: {
+          ...state.userData,
+          likes: state.userData.likes.filter(
+            like => like.screamId !== action.payload.screamId
+          )
+        }
       };
     default:
       return state;
