@@ -69,6 +69,10 @@ a:visited {
   margin: 0 auto;
 }
 
+.nav-container svg {
+  color: #fff;
+}
+
 hr {
   border: none;
   outline: none;

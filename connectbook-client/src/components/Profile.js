@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Link from 'react-router-dom/Link';
 import EditDetails from './EditDetails';
 import { uploadImage, signoutUser } from '../redux/actions/userActions';
+import MyIconButton from './IconButton';
 
 import LocationOn from '@material-ui/icons/LocationOn';
 import Linkicon from '@material-ui/icons/Link';
@@ -20,8 +21,6 @@ import CardContent from '@material-ui/core/CardContent';
 import MuiLink from '@material-ui/core/Link';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
 
 const styles = {
   card: {
@@ -152,7 +151,6 @@ class Profile extends Component {
                 <MuiLink
                   component="a"
                   target="_blank"
-                  ref="nooppener norefferer"
                   href={`${userData.credentials.website}`}
                   color="primary"
                   varient="body2"
@@ -176,11 +174,9 @@ class Profile extends Component {
               </Typography>
             </div>
             <div className={classes.icons}>
-              <Tooltip placement="top" title="Signout">
-                <IconButton onClick={this.handleLogout} color="secondary">
-                  <KeyboardReturn color="secondary" />
-                </IconButton>
-              </Tooltip>
+              <MyIconButton tip="Signout" onClick={this.handleLogout}>
+                <KeyboardReturn color="secondary" />
+              </MyIconButton>
               <EditDetails />
             </div>
           </CardContent>
