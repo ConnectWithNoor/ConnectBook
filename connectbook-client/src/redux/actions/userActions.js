@@ -49,11 +49,7 @@ export const signoutUser = () => dispatch => {
 export const getUserData = () => async dispatch => {
   dispatch({ type: LOADING_USER });
   try {
-    const res = await axios.get('/user', {
-      headers: {
-        Authorization: localStorage.getItem('idToken')
-      }
-    });
+    const res = await axios.get('/user');
     dispatch({ type: SET_USER, payload: res.data });
   } catch (err) {
     console.log(err.response);
@@ -64,11 +60,7 @@ export const uploadImage = formData => async dispatch => {
   dispatch({ type: LOADING_USER });
 
   try {
-    await axios.post('/user/upload/image', formData, {
-      headers: {
-        Authorization: localStorage.getItem('idToken')
-      }
-    });
+    await axios.post('/user/upload/image', formData);
     dispatch(getUserData());
   } catch (err) {
     console.log(err.response.data);
@@ -79,11 +71,7 @@ export const editUserDetails = userDetails => async dispatch => {
   dispatch({ type: LOADING_USER });
 
   try {
-    await axios.post('/user', userDetails, {
-      headers: {
-        Authorization: localStorage.getItem('idToken')
-      }
-    });
+    await axios.post('/user', userDetails);
     dispatch(getUserData());
   } catch (err) {
     console.log(err.response.data);
@@ -92,5 +80,5 @@ export const editUserDetails = userDetails => async dispatch => {
 
 const setAuthorizationHeader = token => {
   localStorage.setItem('idToken', `Bearer ${token}`);
-  // axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 };

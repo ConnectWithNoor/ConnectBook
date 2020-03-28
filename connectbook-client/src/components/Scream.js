@@ -20,7 +20,8 @@ import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 const styles = theme => ({
   card: {
     display: 'flex',
-    margin: '2rem auto',
+    padding: '2rem auto',
+    margin: '1rem auto',
     minHeight: '15rem'
   },
   image: {
@@ -62,9 +63,7 @@ class Scream extends Component {
       scream,
       user: {
         authenticated,
-        userData: {
-          credentials: { handle }
-        }
+        userData: { credentials }
       }
     } = this.props;
 
@@ -87,7 +86,9 @@ class Scream extends Component {
     );
 
     const deleteButton =
-      authenticated && scream.userHandle === handle ? (
+      credentials &&
+      authenticated &&
+      scream.userHandle === credentials.handle ? (
         <DeleteScream screamId={scream.screamId} />
       ) : null;
 

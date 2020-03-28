@@ -35,7 +35,7 @@ export default (state = initialState, action) => {
         ...state
       };
     case DELETE_SCREAM:
-      const index2 = state.scream.findIndex(
+      const index2 = state.screams.findIndex(
         scream => scream.screamId === action.payload
       );
       state.screams.splice(index2, 1);

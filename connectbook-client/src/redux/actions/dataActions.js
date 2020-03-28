@@ -23,11 +23,7 @@ export const getScreams = () => async dispatch => {
 // like a scream
 export const likeScream = screamId => async dispatch => {
   try {
-    const res = await axios.get(`/scream/${screamId}/like`, {
-      headers: {
-        Authorization: localStorage.getItem('idToken')
-      }
-    });
+    const res = await axios.get(`/scream/${screamId}/like`);
     dispatch({ type: LIKE_SCREAM, payload: res.data.screamData });
   } catch (err) {
     console.log(err);
@@ -37,11 +33,7 @@ export const likeScream = screamId => async dispatch => {
 // unlike a scream
 export const unlikeScream = screamId => async dispatch => {
   try {
-    const res = await axios.get(`/scream/${screamId}/unlike`, {
-      headers: {
-        Authorization: localStorage.getItem('idToken')
-      }
-    });
+    const res = await axios.get(`/scream/${screamId}/unlike`);
     dispatch({ type: UNLIKE_SCREAM, payload: res.data.screamData });
   } catch (err) {
     console.log(err);
@@ -54,6 +46,6 @@ export const deleteScream = screamId => async dispatch => {
     await axios.delete(`/scream/${screamId}`);
     dispatch({ type: DELETE_SCREAM, payload: screamId });
   } catch (err) {
-    console.log(err);
+    console.log(err.response);
   }
 };
