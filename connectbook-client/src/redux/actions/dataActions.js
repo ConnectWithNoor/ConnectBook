@@ -63,7 +63,7 @@ export const postScream = newScream => async dispatch => {
     dispatch({ type: POST_SCREAM, payload: res.data });
     dispatch({ type: CLEAR_ERRORS });
   } catch (err) {
+    console.log(err.response);
     dispatch({ type: SET_ERRORS, payload: err.response.data });
-    console.log(err);
   }
 };

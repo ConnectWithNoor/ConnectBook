@@ -14,11 +14,7 @@ export default (state = initialState, action) => {
         errors: action.payload
       };
     case CLEAR_ERRORS:
-      return {
-        ...state,
-        loading: false,
-        errors: null
-      };
+      return initialState;
     case LOADING_UI:
       return {
         ...state,
