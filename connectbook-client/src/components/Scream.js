@@ -19,18 +19,20 @@ import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
 const styles = theme => ({
   card: {
+    position: 'relative',
     display: 'flex',
-    padding: '2rem auto',
-    margin: '1rem auto',
-    minHeight: '15rem'
+    minHeight: '15rem',
+    margin: '2rem auto'
   },
   image: {
     minWidth: '20rem',
     backgroundSize: 'cover'
   },
   content: {
-    padding: '3rem',
-    height: '10rem'
+    padding: '2rem'
+  },
+  text: {
+    marginTop: '1rem'
   }
 });
 
@@ -112,7 +114,9 @@ class Scream extends Component {
           <Typography variant="body2" color="textSecondary">
             {dayjs(scream.createdAt).fromNow()}
           </Typography>
-          <Typography variant="body1">{scream.body}</Typography>
+          <Typography variant="body1" className={classes.text}>
+            {scream.body}
+          </Typography>
           {likeButton}
           <span>{scream.likeCount} Likes</span>
           <MyIconButton tip="comments">

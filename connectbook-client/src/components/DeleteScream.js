@@ -13,7 +13,13 @@ import DialogActions from '@material-ui/core/DialogActions';
 
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 
-const styles = {};
+const styles = {
+  deleteButton: {
+    position: 'absolute',
+    top: '7%',
+    left: '90%'
+  }
+};
 
 class DeleteScream extends Component {
   state = {
@@ -40,7 +46,7 @@ class DeleteScream extends Component {
         <MyIconButton
           tip="Delete scream"
           onClick={this.handleOpen}
-          btnClassName={classes.button}
+          btnClassName={classes.deleteButton}
         >
           <DeleteOutlineIcon color="secondary" />
         </MyIconButton>
