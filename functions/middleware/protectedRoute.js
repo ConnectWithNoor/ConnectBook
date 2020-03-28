@@ -11,7 +11,8 @@ const protectedRoute = async (req, res, next) => {
     req.headers.authorization.startsWith('Bearer ')
   ) {
     //   extract idToken from header and verify it
-    const idToken = req.headers.authorization.split('Bearer ')[1];
+    const headerSplit = req.headers.authorization.split('Bearer ');
+    const idToken = headerSplit[headerSplit.length - 1];
     try {
       const decodedToken = await admin.auth().verifyIdToken(idToken);
       //   add decodedToken to req
