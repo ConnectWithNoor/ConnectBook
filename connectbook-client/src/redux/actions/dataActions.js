@@ -18,3 +18,23 @@ export const getScreams = () => async dispatch => {
     console.log(err);
   }
 };
+
+// like a scream
+export const likeScream = screamId => async dispatch => {
+  try {
+    const res = axios.get(`/scream/${screamId}/like`);
+    dispatch({ type: LIKE_SCREAM, payload: res.data });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// unlike a scream
+export const unlikeScream = screamId => async dispatch => {
+  try {
+    const res = axios.get(`/scream/${screamId}/unlike`);
+    dispatch({ type: UNLINE_SCREAM, payload: res.data });
+  } catch (err) {
+    console.log(err);
+  }
+};
