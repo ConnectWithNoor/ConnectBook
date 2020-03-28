@@ -2,10 +2,10 @@ import axios from 'axios';
 import {
   SET_USER,
   SET_ERRORS,
-  CLEAR_ERRORS,
   LOADING_UI,
   SET_UNAUTHENTICATED,
-  LOADING_USER
+  LOADING_USER,
+  UNLOAD_UI
 } from '../types';
 
 export const signinUser = (userData, history) => async dispatch => {
@@ -13,13 +13,13 @@ export const signinUser = (userData, history) => async dispatch => {
 
   try {
     const res = await axios.post('/signin', userData);
-    await setAuthorizationHeader(res.data.token);
+    setAuthorizationHeader(res.data.token);
     dispatch(getUserData());
-    // dispatch({ type: CLEAR_ERRORS });
+    dispatch({ type: UNLOAD_UI });
+
     history.push('/');
   } catch (err) {
     console.log(err.response.data.error);
-    // dispatch({ type: CLEAR_ERRORS });
     dispatch({ type: SET_ERRORS, payload: err.response.data.error });
   }
 };
@@ -29,9 +29,9 @@ export const signupUser = (newUserData, history) => async dispatch => {
 
   try {
     const res = await axios.post('/signup', newUserData);
-    await setAuthorizationHeader(res.data.token);
+    setAuthorizationHeader(res.data.token);
     dispatch(getUserData());
-    // dispatch({ type: CLEAR_ERRORS });
+    dispatch({ type: UNLOAD_UI });
     history.push('/');
   } catch (err) {
     console.log(err.response.data.error);

@@ -7,7 +7,8 @@ import {
   LOADING_UI,
   POST_SCREAM,
   SET_ERRORS,
-  CLEAR_ERRORS
+  CLEAR_ERRORS,
+  UNLOAD_UI
 } from '../types';
 import axios from 'axios';
 
@@ -62,6 +63,7 @@ export const postScream = newScream => async dispatch => {
     const res = await axios.post('/newscream', newScream);
     dispatch({ type: POST_SCREAM, payload: res.data });
     dispatch({ type: CLEAR_ERRORS });
+    dispatch({ type: UNLOAD_UI });
   } catch (err) {
     console.log(err.response);
     dispatch({ type: SET_ERRORS, payload: err.response.data });
