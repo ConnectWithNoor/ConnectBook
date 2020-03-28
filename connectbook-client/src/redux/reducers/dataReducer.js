@@ -29,7 +29,7 @@ export default (state = initialState, action) => {
       const index = state.screams.findIndex(
         scream => scream.screamId === action.payload.screamId
       );
-      state.scream[index] = action.payload;
+      state.screams[index] = action.payload;
       return {
         ...state
       };

@@ -20,7 +20,6 @@ export default createMuiTheme({
     fontWeight: 300,
     fontFamily: ['Roboto', 'sans-serif'].join(','),
     fontStyle: 'normal',
-    fontSize: 16,
     htmlFontSize: 10
   },
   form: {

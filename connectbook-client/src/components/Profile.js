@@ -52,7 +52,8 @@ const styles = {
     }
   },
   text: {
-    marginLeft: '15%'
+    marginLeft: '5%',
+    fontSize: '1.4rem'
   },
   buttons: {
     marginTop: '2rem'
