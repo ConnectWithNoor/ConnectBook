@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { likeScream, unlikeScream } from '../redux/actions/dataActions';
 import MyIconButton from './IconButton';
+import DeleteScream from './DeleteScream';
 
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -59,7 +60,12 @@ class Scream extends Component {
     const {
       classes,
       scream,
-      user: { authenticated }
+      user: {
+        authenticated,
+        userData: {
+          credentials: { handle }
+        }
+      }
     } = this.props;
 
     dayjs.extend(relativeTime);
@@ -80,6 +86,11 @@ class Scream extends Component {
       </MyIconButton>
     );
 
+    const deleteButton =
+      authenticated && scream.userHandle === handle ? (
+        <DeleteScream screamId={scream.screamId} />
+      ) : null;
+
     return (
       <Card className={classes.card}>
         <CardMedia
@@ -96,6 +107,7 @@ class Scream extends Component {
           >
             {scream.userHandle}
           </Typography>
+          {deleteButton}
           <Typography variant="body2" color="textSecondary">
             {dayjs(scream.createdAt).fromNow()}
           </Typography>
