@@ -47,7 +47,7 @@ class PostScream extends Component {
   };
 
   handleClose = () => {
-    this.setState({ open: false });
+    this.setState({ open: false, body: '', errors: {} });
   };
 
   postScream = e => {
@@ -65,6 +65,10 @@ class PostScream extends Component {
     if (nextProp.UI.errors) {
       this.setState({ errors: nextProp.UI.errors });
     }
+
+    if (!nextProp.UI.errors && !nextProp.UI.loading) {
+      this.handleClose();
+    }
   }
 
   render() {
@@ -73,6 +77,7 @@ class PostScream extends Component {
       UI: { loading },
       classes
     } = this.props;
+    console.log(errors);
 
     return (
       <Fragment>
