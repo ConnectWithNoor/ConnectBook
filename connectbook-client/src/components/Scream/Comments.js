@@ -31,7 +31,7 @@ class Comments extends Component {
           const { body, createdAt, userImage, userHandle } = comment;
 
           return (
-            <Fragment key={createdAt}>
+            <Fragment key={index}>
               <Grid item sm={2}>
                 <img
                   src={userImage}

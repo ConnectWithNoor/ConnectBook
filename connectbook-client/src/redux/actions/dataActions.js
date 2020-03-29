@@ -91,9 +91,9 @@ export const submitComment = (screamId, commentData) => async dispatch => {
       `/scream/${screamId}/comment`,
       commentData
     );
-    // const scream = await axios.get(`/scream/${screamId}`);
+    const scream = await axios.get(`/scream/${screamId}`);
     dispatch({ type: SUBMIT_COMMENT, payload: comment.data.newComment });
-    // dispatch({ type: SET_SCREAM, payload: scream.data.screamData });
+    dispatch({ type: SET_SCREAM, payload: scream.data.screamData });
     dispatch({ type: CLEAR_ERRORS });
   } catch (err) {
     dispatch({ type: SET_ERRORS, payload: err.response.data });
@@ -105,6 +105,7 @@ export const getHandleInfo = userHandle => async dispatch => {
   dispatch({ type: LOADING_DATA });
   try {
     const res = await axios.get(`/user/${userHandle}`);
+
     dispatch({ type: SET_SCREAMS, payload: res.data.screams });
   } catch (err) {
     dispatch({ SET_ERRORS: err.response.data });
