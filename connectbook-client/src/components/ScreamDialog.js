@@ -8,17 +8,17 @@ import { connect } from 'react-redux';
 
 import { getScream } from '../redux/actions/dataActions';
 import { themeStyles } from '../utilities/theme';
+import LikeButton from './LikeButton';
 
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+
 import UnfoldMoreIcon from '@material-ui/icons/UnfoldMore';
 import CloseIcon from '@material-ui/icons/Close';
+import ChatIcon from '@material-ui/icons/Chat';
 
 const styles = {
   ...themeStyles,
@@ -105,6 +105,12 @@ class ScreamDialog extends Component {
           </Typography>
           <hr className={classes.m1} />
           <Typography variant="body1">{scream.body}</Typography>
+          <LikeButton screamId={scream.screamId} />
+          <span>{scream.likeCount} Likes</span>
+          <MyIconButton tip="comments">
+            <ChatIcon color="primary" />
+          </MyIconButton>
+          <span>{scream.commentCount} comments</span>
         </Grid>
       </Grid>
     );

@@ -37,11 +37,11 @@ class LikeButton extends Component {
       user: { authenticated }
     } = this.props;
     const LikeButton = !authenticated ? (
-      <MyIconButton tip="Like">
-        <Link to="/signin">
+      <Link to="/signin">
+        <MyIconButton tip="Like">
           <FavoriteBorder color="primary" />
-        </Link>
-      </MyIconButton>
+        </MyIconButton>
+      </Link>
     ) : this.likedScream() ? (
       <MyIconButton tip="Undo like" onClick={this.unlikeScream}>
         <FavoriteIcon color="primary" />

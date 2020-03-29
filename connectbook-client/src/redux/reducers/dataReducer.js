@@ -39,6 +39,11 @@ export default (state = initialState, action) => {
         scream => scream.screamId === action.payload.screamId
       );
       state.screams[index1] = action.payload;
+
+      if (state.scream.screamId === action.payload.screamId) {
+        state.scream = action.payload;
+      }
+
       return {
         ...state
       };

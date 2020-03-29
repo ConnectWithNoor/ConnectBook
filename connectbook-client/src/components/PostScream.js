@@ -77,7 +77,6 @@ class PostScream extends Component {
       UI: { loading },
       classes
     } = this.props;
-    console.log(errors);
 
     return (
       <Fragment>
