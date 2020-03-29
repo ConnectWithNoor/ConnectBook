@@ -22,6 +22,10 @@ import CloseIcon from '@material-ui/icons/Close';
 
 const styles = {
   ...themeStyles,
+  expandBtn: {
+    position: 'absolute',
+    left: '90%'
+  },
   profileImage: {
     objectFit: 'cover',
     borderRadius: '50%',
@@ -30,7 +34,8 @@ const styles = {
   },
   closeBtn: {
     position: 'absolute',
-    right: '5%'
+    right: '5%',
+    top: '5%'
   },
   dialogContent: {
     padding: '2rem'
@@ -41,8 +46,9 @@ const styles = {
   m1: {
     margin: '1rem auto'
   },
-  progress: {
-    position: 'absolute'
+  spinnerDiv: {
+    textAlign: 'center',
+    margin: '5rem auto'
   }
 };
 
@@ -72,7 +78,9 @@ class ScreamDialog extends Component {
     } = this.props;
 
     const dialogMakrup = loading ? (
-      <CircularProgress size={100} color="primary" />
+      <div className={classes.spinnerDiv}>
+        <CircularProgress size={150} color="primary" thickness={2} />
+      </div>
     ) : (
       <Grid container spacing={2}>
         <Grid item sm={4}>

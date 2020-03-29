@@ -4,7 +4,6 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { likeScream, unlikeScream } from '../redux/actions/dataActions';
 import MyIconButton from './IconButton';
 import DeleteScream from './DeleteScream';
 import ScreamDialog from './ScreamDialog';
@@ -15,8 +14,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import ChatIcon from '@material-ui/icons/Chat';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
+import LikeButton from './LikeButton';
 
 const styles = theme => ({
   card: {
@@ -38,28 +36,6 @@ const styles = theme => ({
 });
 
 class Scream extends Component {
-  likedScream = () => {
-    const {
-      user: { userData },
-      scream
-    } = this.props;
-    if (
-      userData.likes &&
-      userData.likes.find(like => like.screamId === scream.screamId)
-    ) {
-      return true;
-    }
-    return false;
-  };
-
-  likeScream = () => {
-    this.props.likeScream(this.props.scream.screamId);
-  };
-
-  unlikeScream = () => {
-    this.props.unlikeScream(this.props.scream.screamId);
-  };
-
   render() {
     const {
       classes,
@@ -71,22 +47,6 @@ class Scream extends Component {
     } = this.props;
 
     dayjs.extend(relativeTime);
-
-    const likeButton = !authenticated ? (
-      <MyIconButton tip="Like">
-        <Link to="/signin">
-          <FavoriteBorder color="primary" />
-        </Link>
-      </MyIconButton>
-    ) : this.likedScream() ? (
-      <MyIconButton tip="Undo like" onClick={this.unlikeScream}>
-        <FavoriteIcon color="primary" />
-      </MyIconButton>
-    ) : (
-      <MyIconButton tip="Like" onClick={this.likeScream}>
-        <FavoriteBorder color="primary" />
-      </MyIconButton>
-    );
 
     const deleteButton =
       credentials &&
@@ -118,7 +78,7 @@ class Scream extends Component {
           <Typography variant="body1" className={classes.text}>
             {scream.body}
           </Typography>
-          {likeButton}
+          <LikeButton screamId={scream.screamId} />
           <span>{scream.likeCount} Likes</span>
           <MyIconButton tip="comments">
             <ChatIcon color="primary" />
@@ -146,12 +106,4 @@ const mapStateToProps = state => ({
   user: state.user
 });
 
-const mapActionToprops = {
-  likeScream,
-  unlikeScream
-};
-
-export default connect(
-  mapStateToProps,
-  mapActionToprops
-)(withStyles(styles)(Scream));
+export default connect(mapStateToProps)(withStyles(styles)(Scream));
