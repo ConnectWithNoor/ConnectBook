@@ -7,6 +7,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/styles';
+import MyIconButton from './IconButton';
 
 import HomeIcon from '@material-ui/icons/Home';
 import NotificationsIcon from '@material-ui/icons/Notifications';
@@ -29,12 +30,12 @@ function Navbar(props) {
           {authenticated ? (
             <Fragment>
               <PostScream />
-              {/* <Link to="/">
+              <Link to="/">
                 <MyIconButton tip="Home">
                   <HomeIcon />
                 </MyIconButton>
               </Link>
-              <MyIconButton tip="Notifications">
+              {/*<MyIconButton tip="Notifications">
                 <NotificationsIcon />
               </MyIconButton> */}
             </Fragment>
