@@ -10,6 +10,7 @@ import { getScream } from '../../redux/actions/dataActions';
 import { themeStyles } from '../../utilities/theme';
 import LikeButton from './LikeButton';
 import Comments from './Comments';
+import CommentForm from './CommentForm';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -104,6 +105,7 @@ class ScreamDialog extends Component {
           <span>{scream.commentCount} comments</span>
         </Grid>
         <span className={classes.visibleSeparator} />
+        <CommentForm screamId={scream.screamId} />
         <Comments comments={scream.comments} />
       </Grid>
     );

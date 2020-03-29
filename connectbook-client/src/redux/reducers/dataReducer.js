@@ -5,7 +5,8 @@ import {
   UNLIKE_SCREAM,
   LOADING_DATA,
   DELETE_SCREAM,
-  POST_SCREAM
+  POST_SCREAM,
+  SUBMIT_COMMENT
 } from '../types';
 
 const initialState = {
@@ -43,7 +44,6 @@ export default (state = initialState, action) => {
       if (state.scream.screamId === action.payload.screamId) {
         state.scream = action.payload;
       }
-
       return {
         ...state
       };
@@ -59,6 +59,14 @@ export default (state = initialState, action) => {
       return {
         ...state,
         screams: [action.payload.newScream, ...state.screams]
+      };
+    case SUBMIT_COMMENT:
+      return {
+        ...state,
+        scream: {
+          ...state.scream,
+          comments: [action.payload, ...state.scream.comments]
+        }
       };
     default:
       return state;

@@ -12,8 +12,8 @@ import { Link } from '@material-ui/core';
 const styles = {
   ...themeStyles,
   commentImage: {
-    maxWidth: '100%',
-    height: 100,
+    width: '10rem',
+    height: '10rem',
     objectFit: 'cover',
     borderRadius: '50%'
   },

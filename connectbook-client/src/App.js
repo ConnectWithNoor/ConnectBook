@@ -37,4 +37,6 @@ function App() {
 
 export default App;
 
-// 9:25
+// 10:36
+
+// todo: comment count isn't updating on new comments
