@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { likeScream, unlikeScream } from '../redux/actions/dataActions';
 import MyIconButton from './IconButton';
 import DeleteScream from './DeleteScream';
+import ScreamDialog from './ScreamDialog';
 
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -123,6 +124,10 @@ class Scream extends Component {
             <ChatIcon color="primary" />
           </MyIconButton>
           <span>{scream.commentCount} comments</span>
+          <ScreamDialog
+            screamId={scream.screamId}
+            userHandle={scream.userHandle}
+          />
         </CardContent>
       </Card>
     );

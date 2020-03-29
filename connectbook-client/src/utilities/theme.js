@@ -39,6 +39,10 @@ export default createMuiTheme({
   },
   progress: {
     position: 'absolute'
+  },
+  text: {
+    textAlign: 'center',
+    margin: '1rem auto'
   }
 });
 
