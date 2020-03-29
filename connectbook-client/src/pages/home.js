@@ -26,7 +26,11 @@ class home extends Component {
     return (
       <Grid container spacing={4}>
         <Grid item sm={8} xs={12}>
-          {recentScreamsMarkup}
+          {loading ? (
+            <LinearProgress color="primary" size={30} />
+          ) : (
+            recentScreamsMarkup
+          )}
         </Grid>
 
         <Grid item sm={4} xs={12}>
