@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { getScream } from '../../redux/actions/dataActions';
 import { themeStyles } from '../../utilities/theme';
 import LikeButton from './LikeButton';
+import Comments from './Comments';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -26,12 +27,7 @@ const styles = {
     position: 'absolute',
     left: '90%'
   },
-  profileImage: {
-    objectFit: 'cover',
-    borderRadius: '50%',
-    height: '15rem',
-    width: '15rem'
-  },
+
   closeBtn: {
     position: 'absolute',
     right: '5%',
@@ -40,12 +36,7 @@ const styles = {
   dialogContent: {
     padding: '2rem'
   },
-  m3: {
-    margin: '.3rem auto'
-  },
-  m1: {
-    margin: '1rem auto'
-  },
+
   spinnerDiv: {
     textAlign: 'center',
     margin: '5rem auto'
@@ -112,6 +103,8 @@ class ScreamDialog extends Component {
           </MyIconButton>
           <span>{scream.commentCount} comments</span>
         </Grid>
+        <span className={classes.visibleSeparator} />
+        <Comments comments={scream.comments} />
       </Grid>
     );
     return (

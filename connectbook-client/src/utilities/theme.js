@@ -68,5 +68,23 @@ export const themeStyles = {
   text: {
     textAlign: 'center',
     margin: '1rem auto'
+  },
+  visibleSeparator: {
+    borderBottom: '1px solid rgba(0,0,0, .1)',
+    width: '100%',
+    marginTop: '.5rem',
+    marginBottom: '2rem'
+  },
+  m3: {
+    margin: '.3rem auto'
+  },
+  m1: {
+    margin: '1rem auto'
+  },
+  profileImage: {
+    objectFit: 'cover',
+    borderRadius: '50%',
+    height: '15rem',
+    width: '15rem'
   }
 };
