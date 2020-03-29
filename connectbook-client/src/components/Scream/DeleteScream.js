@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import MyIconButton from './IconButton';
+import MyIconButton from '../Layout/IconButton';
 import { connect } from 'react-redux';
 
-import { deleteScream } from '../redux/actions/dataActions';
+import { deleteScream } from '../../redux/actions/dataActions';
 
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';

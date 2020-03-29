@@ -6,7 +6,7 @@ import home from './pages/home';
 import signin from './pages/signin';
 import signup from './pages/signup';
 
-import Navbar from './components/Navbar';
+import Navbar from './components/Layout/Navbar';
 import AuthRoute from './utilities/AuthRoute';
 import decodeToken from './utilities/decodeToken';
 

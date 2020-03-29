@@ -4,8 +4,8 @@ import dayjs from 'dayjs';
 import { connect } from 'react-redux';
 import Link from 'react-router-dom/Link';
 import EditDetails from './EditDetails';
-import { uploadImage, signoutUser } from '../redux/actions/userActions';
-import MyIconButton from './IconButton';
+import { uploadImage, signoutUser } from '../../redux/actions/userActions';
+import MyIconButton from '../Layout/IconButton';
 
 import LocationOn from '@material-ui/icons/LocationOn';
 import Linkicon from '@material-ui/icons/Link';

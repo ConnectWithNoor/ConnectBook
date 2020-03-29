@@ -3,10 +3,10 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { editUserDetails } from '../redux/actions/userActions';
-import { themeStyles } from '../utilities/theme';
-import validateConstrains from '../utilities/validateConstrains';
-import MyIconButton from './IconButton';
+import { editUserDetails } from '../../redux/actions/userActions';
+import { themeStyles } from '../../utilities/theme';
+import validateConstrains from '../../utilities/validateConstrains';
+import MyIconButton from '../Layout/IconButton';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';

@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import MyIconButton from './IconButton';
-import { postScream } from '../redux/actions/dataActions';
-import { themeStyles } from '../utilities/theme';
+import MyIconButton from '../Layout/IconButton';
+import { postScream } from '../../redux/actions/dataActions';
+import { themeStyles } from '../../utilities/theme';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import AddIcon from '@material-ui/icons/Add';

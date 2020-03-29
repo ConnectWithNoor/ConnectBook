@@ -1,13 +1,13 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import MyIconButton from './IconButton';
+import MyIconButton from '../Layout/IconButton';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { getScream } from '../redux/actions/dataActions';
-import { themeStyles } from '../utilities/theme';
+import { getScream } from '../../redux/actions/dataActions';
+import { themeStyles } from '../../utilities/theme';
 import LikeButton from './LikeButton';
 
 import Dialog from '@material-ui/core/Dialog';
