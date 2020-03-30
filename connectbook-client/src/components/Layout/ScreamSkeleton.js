@@ -3,9 +3,9 @@ import avatar from '../../images/avatar.png';
 import PropTypes from 'prop-types';
 
 import Card from '@material-ui/core/Card';
-import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import withStyles from '@material-ui/core/styles/withStyles';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 const styles = theme => ({
   card: {
@@ -16,9 +16,8 @@ const styles = theme => ({
     padding: '2rem'
   },
   image: {
-    maxWidth: '15rem',
-    objectFit: 'cover',
-    borderRadius: '50%'
+    width: '20rem',
+    height: '15rem'
   },
   content: {
     padding: '2rem',
@@ -27,42 +26,65 @@ const styles = theme => ({
   handle: {
     width: '20rem',
     height: '2.5rem',
-    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary.main,
     marginBottom: '.7rem'
   },
   date: {
     width: '13rem',
     height: '2rem',
-    backgroundColor: `rgba(0,0,0, 0.3)`,
     marginBottom: '1rem'
   },
   fullLine: {
     width: '90%',
     height: '1.2rem',
-    backgroundColor: `rgba(0,0,0, 0.7)`,
     marginBottom: '.7rem'
   },
   halfLine: {
     width: '50%',
     height: '.6rem',
-    backgroundColor: `rgba(0,0,0, 0.7)`,
     marginTop: '.7rem'
   }
 });
 
 const ScreamSkeleton = props => {
   const { classes } = props;
+  console.log(Skeleton);
 
   const content = Array.from({ length: 5 }).map((item, index) => {
     return (
       <Card className={classes.card} key={index}>
-        <CardMedia component="img" className={classes.image} src={avatar} />
+        <Skeleton variant="circle" animation="wave" className={classes.image} />
         <CardContent className={classes.content}>
-          <div className={classes.handle} />
-          <div className={classes.date} />
-          <div className={classes.fullLine} />
-          <div className={classes.fullLine} />
-          <div className={classes.halfLine} />
+          <Skeleton
+            variant="text"
+            component="div"
+            animation="wave"
+            className={classes.handle}
+          />
+          <Skeleton
+            variant="text"
+            component="div"
+            animation="wave"
+            className={classes.date}
+          />
+          <Skeleton
+            variant="text"
+            animation="wave"
+            className={classes.fullLine}
+            component="div"
+          />
+          <Skeleton
+            variant="text"
+            animation="wave"
+            className={classes.fullLine}
+            component="div"
+          />
+          <Skeleton
+            variant="text"
+            animation="wave"
+            className={classes.halfLine}
+            component="div"
+          />
         </CardContent>
       </Card>
     );
