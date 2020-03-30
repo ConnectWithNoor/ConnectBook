@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import avatar from '../../images/avatar.png';
 import PropTypes from 'prop-types';
 
 import Card from '@material-ui/core/Card';
@@ -26,7 +25,6 @@ const styles = theme => ({
   handle: {
     width: '20rem',
     height: '2.5rem',
-    color: theme.palette.primary.main,
     marginBottom: '.7rem'
   },
   date: {

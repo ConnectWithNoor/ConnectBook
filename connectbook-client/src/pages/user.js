@@ -4,8 +4,8 @@ import axios from 'axios';
 import Scream from '../components/Scream/Scream';
 import StaticProfile from '../components/Profile/StaticProfile';
 import Typography from '@material-ui/core/Typography';
-import LinearProgress from '@material-ui/core/LinearProgress';
 import ScreamSkeleton from '../components/Layout/ScreamSkeleton';
+import ProfileSkeleton from '../components/Layout/ProfileSkeleton';
 
 import Grid from '@material-ui/core/Grid';
 import { connect } from 'react-redux';
@@ -40,7 +40,6 @@ class user extends Component {
     const { screamIdParam } = this.state;
 
     const screamsMarkup = loading ? (
-      // <LinearProgress size={100} color="primary" />
       <ScreamSkeleton />
     ) : screams.length < 0 ? (
       <Typography variant="h5" color="secondary">
@@ -67,7 +66,7 @@ class user extends Component {
           {this.state.profile ? (
             <StaticProfile profile={this.state.profile} />
           ) : (
-            <LinearProgress size={100} color="primary" />
+            <ProfileSkeleton />
           )}
         </Grid>
       </Grid>

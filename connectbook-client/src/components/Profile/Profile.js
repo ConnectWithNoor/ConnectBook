@@ -19,7 +19,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 import MuiLink from '@material-ui/core/Link';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import ProfileSkeleton from '../Layout/ProfileSkeleton';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 const styles = {
@@ -210,7 +210,8 @@ class Profile extends Component {
         </Card>
       )
     ) : (
-      <LinearProgress color="primary" size={30} />
+      // <LinearProgress color="primary" size={30} />
+      <ProfileSkeleton />
     );
 
     return profileMarkup;
