@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { submitComment } from '../../redux/actions/dataActions';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -15,6 +16,9 @@ const styles = {
   button: {
     marginTop: '1rem',
     float: 'right'
+  },
+  progress: {
+    position: 'absolute'
   }
 };
 
@@ -53,13 +57,9 @@ class CommentForm extends Component {
   }
 
   render() {
-    const {
-      classes,
-      authenticated,
-      screamId,
-      UI: { loading }
-    } = this.props;
-    const { errors, body } = this.state;
+    const { classes, authenticated } = this.props;
+    const { errors, body, loading } = this.state;
+    console.log(errors);
 
     const commentFormMarkup = authenticated ? (
       <Grid item sm={12}>
@@ -80,8 +80,12 @@ class CommentForm extends Component {
             variant="contained"
             color="primary"
             className={classes.button}
+            disabled={loading}
           >
             Submit
+            {loading && (
+              <CircularProgress size={30} className={classes.progress} />
+            )}
           </Button>
         </form>
         <span className={classes.visibleSeparator} />
@@ -100,7 +104,6 @@ CommentForm.propTypes = {
 };
 
 const mapStatesToProps = state => ({
-  UI: state.ui,
   authenticated: state.user.authenticated
 });
 

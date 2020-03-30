@@ -87,6 +87,7 @@ class Scream extends Component {
           <ScreamDialog
             screamId={scream.screamId}
             userHandle={scream.userHandle}
+            openDialog={this.props.openDialog}
           />
         </CardContent>
       </Card>
@@ -99,7 +100,8 @@ Scream.protoTypes = {
   likeScream: PropTypes.func.isRequired,
   unlikeScream: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
-  scream: PropTypes.object.isRequired
+  scream: PropTypes.object.isRequired,
+  openDialog: PropTypes.bool
 };
 
 const mapStateToProps = state => ({

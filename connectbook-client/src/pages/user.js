@@ -12,11 +12,17 @@ import { getHandleInfo } from '../redux/actions/dataActions';
 
 class user extends Component {
   state = {
-    profile: null
+    profile: null,
+    screamIdParam: null
   };
 
   async componentDidMount() {
-    const handle = this.props.match.params.handle;
+    const { handle, screamId } = this.props.match.params;
+
+    if (screamId) {
+      this.setState({ screamIdParam: screamId });
+    }
+
     this.props.getHandleInfo(handle);
     try {
       const res = await axios.get(`/user/${handle}`);
@@ -30,6 +36,7 @@ class user extends Component {
   }
   render() {
     const { screams, loading } = this.props.data;
+    const { screamIdParam } = this.state;
 
     const screamsMarkup = loading ? (
       <LinearProgress size={100} color="primary" />
@@ -37,8 +44,16 @@ class user extends Component {
       <Typography variant="h5" color="secondary">
         No Screams Found of user @{this.props.match.params.handle}
       </Typography>
-    ) : (
+    ) : !screamIdParam ? (
       screams.map(scream => <Scream key={scream.screamId} scream={scream} />)
+    ) : (
+      screams.map(scream => {
+        if (scream.screamId === screamIdParam) {
+          return <Scream key={scream.screamId} scream={scream} openDialog />;
+        } else {
+          return <Scream key={scream.screamId} scream={scream} />;
+        }
+      })
     );
     return (
       <Grid container spacing={4}>
