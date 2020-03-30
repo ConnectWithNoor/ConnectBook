@@ -168,8 +168,12 @@ exports.likeScream = async (req, res) => {
     .limit(1);
 
   const screamDocument = db.doc(`/screams/${req.params.screamId}`);
+  const commentsDocument = db
+    .collection('comments')
+    .where('screamId', '==', req.params.screamId);
   try {
     const scream = await screamDocument.get();
+    const comments = await commentsDocument.get();
 
     if (!scream.exists) {
       return res.status(404).send({ error: 'scream not found' });
@@ -190,6 +194,7 @@ exports.likeScream = async (req, res) => {
         };
         await db.collection('likes').add(likeDetails);
         screamData.likeCount = screamData.likeCount + 1;
+        screamData.comments = comments.docs.map(comment => comment.data());
         await screamDocument.update({ likeCount: screamData.likeCount });
 
         return res
@@ -213,8 +218,12 @@ exports.unlikeScream = async (req, res) => {
     .limit(1);
 
   const screamDocument = db.doc(`/screams/${req.params.screamId}`);
+  const commentsDocument = db
+    .collection('comments')
+    .where('screamId', '==', req.params.screamId);
   try {
     const scream = await screamDocument.get();
+    const comments = await commentsDocument.get();
 
     if (!scream.exists) {
       return res.status(404).send({ error: 'scream not found' });
@@ -231,6 +240,7 @@ exports.unlikeScream = async (req, res) => {
         return res.status(400).send({ error: 'scream already unliked' });
       } else {
         await db.doc(`/likes/${like.docs[0].id}`).delete();
+        screamData.comments = comments.docs.map(comment => comment.data());
         screamData.likeCount > 0 &&
           screamData.likeCount-- &&
           (await screamDocument.update({ likeCount: screamData.likeCount }));
