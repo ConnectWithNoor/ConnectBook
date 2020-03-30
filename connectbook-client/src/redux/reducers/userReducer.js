@@ -4,7 +4,8 @@ import {
   SET_UNAUTHENTICATED,
   LOADING_USER,
   LIKE_SCREAM,
-  UNLIKE_SCREAM
+  UNLIKE_SCREAM,
+  MARK_NOTIFICATION_READ
 } from '../types';
 
 const initialState = {
@@ -60,7 +61,13 @@ export default (state = initialState, action) => {
           )
         }
       };
-
+    case MARK_NOTIFICATION_READ:
+      state.userData.notifications.map(
+        notification => (notification.read = true)
+      );
+      return {
+        ...state
+      };
     default:
       return state;
   }

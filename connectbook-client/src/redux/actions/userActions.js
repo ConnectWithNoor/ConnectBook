@@ -5,7 +5,8 @@ import {
   LOADING_UI,
   SET_UNAUTHENTICATED,
   LOADING_USER,
-  UNLOAD_UI
+  UNLOAD_UI,
+  MARK_NOTIFICATION_READ
 } from '../types';
 
 export const signinUser = (userData, history) => async dispatch => {
@@ -75,6 +76,15 @@ export const editUserDetails = userDetails => async dispatch => {
     dispatch(getUserData());
   } catch (err) {
     console.log(err.response.data);
+  }
+};
+
+export const markNotificationsRead = notificationIds => async dispatch => {
+  try {
+    await axios.post('/notifications', notificationIds);
+    dispatch({ type: MARK_NOTIFICATION_READ });
+  } catch (err) {
+    console.log(err);
   }
 };
 

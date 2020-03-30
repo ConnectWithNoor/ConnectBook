@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import PostScream from '../Scream/PostScream';
+import Notifications from './Notifications';
 // MUI
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -10,7 +11,6 @@ import { makeStyles } from '@material-ui/styles';
 import MyIconButton from './IconButton';
 
 import HomeIcon from '@material-ui/icons/Home';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 
 import { connect } from 'react-redux';
 
@@ -35,9 +35,7 @@ function Navbar(props) {
                   <HomeIcon />
                 </MyIconButton>
               </Link>
-              {/*<MyIconButton tip="Notifications">
-                <NotificationsIcon />
-              </MyIconButton> */}
+              <Notifications />
             </Fragment>
           ) : (
             <Fragment>
