@@ -8,6 +8,7 @@ import { getScreams } from '../redux/actions/dataActions';
 import PropTypes from 'prop-types';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
+import ScreamSkeleton from '../components/Layout/ScreamSkeleton';
 
 class home extends Component {
   async componentDidMount() {
@@ -19,7 +20,8 @@ class home extends Component {
     const { screams, loading } = this.props.data;
 
     let recentScreamsMarkup = loading ? (
-      <LinearProgress color="primary" size={30} />
+      // <LinearProgress color="primary" size={30} />
+      <ScreamSkeleton />
     ) : (
       screams.map(scream => <Scream key={scream.screamId} scream={scream} />)
     );
@@ -27,7 +29,8 @@ class home extends Component {
       <Grid container spacing={4}>
         <Grid item sm={8} xs={12}>
           {loading ? (
-            <LinearProgress color="primary" size={30} />
+            // <LinearProgress color="primary" size={30} />
+            <ScreamSkeleton />
           ) : (
             recentScreamsMarkup
           )}

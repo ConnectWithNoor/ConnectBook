@@ -5,6 +5,7 @@ import Scream from '../components/Scream/Scream';
 import StaticProfile from '../components/Profile/StaticProfile';
 import Typography from '@material-ui/core/Typography';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import ScreamSkeleton from '../components/Layout/ScreamSkeleton';
 
 import Grid from '@material-ui/core/Grid';
 import { connect } from 'react-redux';
@@ -39,7 +40,8 @@ class user extends Component {
     const { screamIdParam } = this.state;
 
     const screamsMarkup = loading ? (
-      <LinearProgress size={100} color="primary" />
+      // <LinearProgress size={100} color="primary" />
+      <ScreamSkeleton />
     ) : screams.length < 0 ? (
       <Typography variant="h5" color="secondary">
         No Screams Found of user @{this.props.match.params.handle}
