@@ -29,11 +29,10 @@ export default (state = initialState, action) => {
         loading: false
       };
     case SET_SCREAM:
-      let index = state.screams.findIndex(
+      const index = state.screams.findIndex(
         scream => scream.screamId === action.payload.screamId
       );
       state.screams[index] = action.payload;
-      console.log(index);
       return {
         ...state,
         scream: action.payload,
@@ -41,10 +40,10 @@ export default (state = initialState, action) => {
       };
     case LIKE_SCREAM:
     case UNLIKE_SCREAM:
-      index = state.screams.findIndex(
+      const index1 = state.screams.findIndex(
         scream => scream.screamId === action.payload.screamId
       );
-      state.screams[index] = action.payload;
+      state.screams[index1] = action.payload;
 
       if (state.scream.screamId === action.payload.screamId) {
         state.scream = action.payload;
@@ -53,10 +52,10 @@ export default (state = initialState, action) => {
         ...state
       };
     case DELETE_SCREAM:
-      index = state.screams.findIndex(
+      const index2 = state.screams.findIndex(
         scream => scream.screamId === action.payload
       );
-      state.screams.splice(index, 1);
+      state.screams.splice(index2, 1);
       return {
         ...state
       };

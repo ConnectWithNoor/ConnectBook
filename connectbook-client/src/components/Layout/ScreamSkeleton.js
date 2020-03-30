@@ -46,7 +46,6 @@ const styles = theme => ({
 
 const ScreamSkeleton = props => {
   const { classes } = props;
-  console.log(Skeleton);
 
   const content = Array.from({ length: 5 }).map((item, index) => {
     return (

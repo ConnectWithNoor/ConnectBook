@@ -59,7 +59,6 @@ class CommentForm extends Component {
   render() {
     const { classes, authenticated } = this.props;
     const { errors, body, loading } = this.state;
-    console.log(errors);
 
     const commentFormMarkup = authenticated ? (
       <Grid item sm={12}>
