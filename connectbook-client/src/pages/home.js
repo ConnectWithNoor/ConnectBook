@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 import { getScreams } from '../redux/actions/dataActions';
 import PropTypes from 'prop-types';
 
-import LinearProgress from '@material-ui/core/LinearProgress';
 import ScreamSkeleton from '../components/Layout/ScreamSkeleton';
 
 class home extends Component {
