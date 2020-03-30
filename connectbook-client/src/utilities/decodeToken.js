@@ -4,6 +4,9 @@ import { signoutUser, getUserData } from '../redux/actions/userActions';
 import store from '../redux/store';
 import axios from 'axios';
 
+axios.defaults.baseURL =
+  'https://us-central1-connectbook-5628f.cloudfunctions.net/api';
+
 export default idToken => {
   const token = localStorage.getItem(idToken);
   if (token) {
